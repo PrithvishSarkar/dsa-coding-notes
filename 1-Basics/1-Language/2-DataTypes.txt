@@ -1,0 +1,31 @@
+// https://static.takeuforward.org/content/-UZ-CN-Hb
+
+// Data Types: short, int, long, long long, float, double, long double, char, bool.
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  int intValue;
+  cin >> intValue;
+
+  long longValue;
+  cin >> longValue;
+
+  long long longlongValue;
+  cin >> longlongValue;
+
+  float floatValue;
+  cin >> floatValue;
+
+  double doubleValue;
+  cin >> doubleValue;
+
+  char characterValue;
+  cin >> characterValue;
+
+  bool booleanValue;
+  cin >> booleanValue;
+  return 0;
+}

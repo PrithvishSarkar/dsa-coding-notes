@@ -1,0 +1,35 @@
+// https://static.takeuforward.org/wp/uploads/2023/09/switch-case.png
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  char grade; // ['A', 'B', 'C', 'D', 'E', 'F']
+  cin >> grade;
+
+  switch (grade) {
+    case 'A':
+      cout << "Out Standing";
+      break;
+    case 'B':
+      cout << "Excellent";
+      break;
+    case 'C':
+      cout << "Good";
+      break;
+    case 'D':
+      cout << "Improvement Required";
+      break;
+    case 'E':
+      cout << "Poor";
+      break;
+    case 'F':
+      cout << "Fail";
+    default:
+      cout << "Invalid Grade";
+      break;
+  }
+
+  return 0;
+}

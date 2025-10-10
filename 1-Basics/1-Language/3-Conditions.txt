@@ -1,0 +1,14 @@
+// https://static.takeuforward.org/wp/uploads/2023/09/if-else.png
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  float marks;
+  cin >> marks;
+
+  if (marks < 35) cout << "fail";
+  else cout << "pass";
+  return 0;
+}

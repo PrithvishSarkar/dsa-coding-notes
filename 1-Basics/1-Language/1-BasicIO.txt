@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+  // Input
+  int number;
+  cin >> number;
+
+  // Operation
+  number *= 3;
+
+  // Output
+  cout << "My name is Prithvish Sarkar!" << endl;
+  cout << number;
+  return 0;
+}
