@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  int number;
+  cin >> number;
+
+  // Printing Odd Numbers Only
+  int count = 1;
+  while (count <= number) {
+    if (count & 1) cout << count << " ";
+    count++;
+  }
+
+  cout << endl;
+
+  // Printing Even Numbers Only
+  count = 1;
+  while (count <= number) {
+    if (!(count & 1)) cout << count << " ";
+    count++;
+  }
+  return 0;
+}

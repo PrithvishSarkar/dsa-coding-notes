@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  int row = 1;
+  // Total Rows = num
+  // Total Cols = 2 * num
+
+  while (row <= num) {
+    int col = 1;
+    int count = 1;
+    int total_cols = 2 * num;
+    int spaces = 2 * (num - row);
+
+    // Printing Forward Numbers
+    while (col <= row) {
+      cout << count;
+      count++;
+      col++;
+    }
+
+    // Printing Spaces
+    while (col <= (row + spaces)) {
+      cout << " ";
+      col++;
+    }
+
+    // Printing Reverse Numbers
+    count--;
+    while (col <= total_cols) {
+      cout << count;
+      count--;
+      col++;
+    }
+
+    cout << endl;
+    row++;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}

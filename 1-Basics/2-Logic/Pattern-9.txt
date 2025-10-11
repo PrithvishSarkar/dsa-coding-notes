@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  int row = 1;
+  // Total Rows = 2 * num;
+  // Total Cols = 2 * num - 1;
+
+  // Printing Upper Half
+  while (row <= num) {
+    int stars = 2 * row - 1;
+    int spaces = num - row;
+
+    int col = 1;
+
+    // Printing Spaces
+    while (col <= spaces) {
+      cout << " ";
+      col++;
+    }
+
+    // Printing Stars
+    while (col <= (spaces + stars)) {
+      cout << '*';
+      col++;
+    }
+
+    cout << endl;
+    row++;
+  }
+
+  // Printing Lower Half
+  row = 1;
+  while (row <= num) {
+    int stars = 2 * (num - row) + 1;
+    int spaces = row - 1;
+
+    int col = 1;
+
+    // Printing Spaces
+    while (col <= spaces) {
+      cout << " ";
+      col++;
+    }
+
+    // Printing Stars
+    while (col <= (spaces + stars)) {
+      cout << '*';
+      col++;
+    }
+
+    cout << endl;
+    row++;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}

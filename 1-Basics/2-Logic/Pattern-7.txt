@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  int row = 1;
+  while (row <= num) {
+    int spaces = num - row;
+    int stars = 2 * row - 1;
+
+    int col = 1;
+
+    // Printing Left Spaces
+    while (col <= spaces) {
+      cout << " ";
+      col++;
+    }
+
+    // Printing Stars
+    while (col <= (spaces + stars)) {
+      cout << "*";
+      col++;
+    }
+
+    cout << endl;
+    row++;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}

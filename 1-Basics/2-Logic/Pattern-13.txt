@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  int count = 1;
+  for (int i = 1; i <= num; i++) {
+    for (int j = 1; j <= i; j++) {
+      cout << count << " ";
+      count++;
+    }
+    cout << endl;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}

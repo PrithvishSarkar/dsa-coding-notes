@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  int row = 1;
+  // Total Rows = 2 * num
+  // Total Cols = num
+
+  // Printing Upper Half
+  while (row <= num) {
+    int col = 1;
+    while (col <= row) {
+      cout << '*';
+      col++;
+    }
+    cout << endl;
+    row++;
+  }
+
+  // Printing Lower Half
+  row = 1;
+  while (row < num) {
+    int stars = num - row;
+    int col = 1;
+    while (col <= stars) {
+      cout << '*';
+      col++;
+    }
+    cout << endl;
+    row++;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}

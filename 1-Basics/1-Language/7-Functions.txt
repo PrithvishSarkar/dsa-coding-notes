@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int sqaured_pbv(int num) {
+  num *= num;
+  return num;
+}
+
+int sqaured_pbr(int & num) {
+  num *= num;
+  return num;
+}
+
+int main() {
+  int number;
+  cin >> number;
+
+  // Square the number: Pass by Value
+  cout << sqaured_pbv(number) << " " << number << endl;
+  // sqaured_pbv and number will be different
+
+  // Square the number: Pass by Reference
+  cout << sqaured_pbr(number) << " " << number << endl;
+  // sqaured_pbv and number will be same
+  return 0;
+}

@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  int row = 1;
+  // Total Rows = num
+  // Total Cols = 2 * num - 1
+
+  while (row <= num) {
+    char ch = 'A';
+    int spaces = num - row;
+
+    int col = 1;
+
+    // Printing Spaces
+    while (col <= spaces) {
+      cout << " ";
+      col++;
+    }
+
+    // Printing Characters Ascending Order
+    while (col <= (spaces + row)) {
+      cout << ch;
+      ch++;
+      col++;
+    }
+
+    // Printing Characters Descending Order
+    ch = char(ch - 2);
+    while (col <= (spaces + 2 * row - 1)) {
+      cout << ch;
+      ch--;
+      col++;
+    }
+
+    cout << endl;
+    row++;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}
