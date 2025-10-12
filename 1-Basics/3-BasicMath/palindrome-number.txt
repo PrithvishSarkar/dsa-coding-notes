@@ -1,0 +1,26 @@
+// Time Complexity is O(log10(N)) and Space Complexity is O(1).
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int reverse(int n) {
+  int num = 0;
+  while (n) {
+    int rem = n % 10;
+    num = num * 10 + rem;
+    n /= 10;
+  }
+  return num;
+}
+
+bool checkPalindrome(int n) {
+  int m = reverse(n);
+  return (n == m);
+}
+
+int main() {
+  int num;
+  cin >> num;
+  cout << checkPalindrome(num);
+}

@@ -1,0 +1,11 @@
+// Time Complexity is O(1) and Space Complexity is O(1).
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  int num;
+  cin >> num;
+  cout << ceil(log10(num));
+}

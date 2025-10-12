@@ -1,0 +1,27 @@
+// Time Complexity is O(log10(N)) and Space Complexity is O(1).
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int findNumberLength(int n) {
+  int length = ceil(log10(n));
+  return length;
+}
+
+bool isArmstrongNumber(int n) {
+  int length = findNumberLength(n);
+  int sum = 0, temp = n;
+  while (temp) {
+    int rem = temp % 10;
+    sum += pow(rem, length);
+    temp /= 10;
+  }
+  return (n == sum);
+}
+
+int main() {
+  int num;
+  cin >> num;
+  cout << isArmstrongNumber(num);
+}

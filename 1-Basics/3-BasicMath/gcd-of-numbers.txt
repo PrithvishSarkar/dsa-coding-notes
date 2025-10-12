@@ -1,0 +1,35 @@
+// Time Complexity is O(log_A (B)) and Space Complexity is O(1).
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+pair < int, int > orderNumbers(int num1, int num2) {
+  // first -> smaller number and second -> larger number
+  if (num1 > num2) return make_pair(num2, num1);
+  return make_pair(num1, num2);
+}
+
+int gcd(int a, int b) {
+  pair < int, int > numbers = orderNumbers(a, b);
+
+  // a -> smaller number
+  a = numbers.first;
+  // b -> larger number
+  b = numbers.second;
+
+  while (b % a != 0) {
+    int r = b % a;
+    if (r == 0) break;
+    b = a;
+    a = r;
+  }
+
+  return a;
+}
+
+int main() {
+  int num1, num2;
+  cin >> num1 >> num2;
+  cout << gcd(num1, num2);
+}

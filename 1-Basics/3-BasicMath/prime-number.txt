@@ -1,0 +1,20 @@
+// Time Complexity is O(sqrt(N)) and Space Complexity is O(1).
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool isPrime(int n) {
+  int sqrtN = sqrt(n);
+  int divisorLessThanNumber = 1;
+  for (int d = 1; d <= sqrtN; d++) {
+    if (n % d == 0) divisorLessThanNumber = d;
+  }
+  return (divisorLessThanNumber == 1);
+}
+
+int main() {
+  int num;
+  cin >> num;
+  cout << isPrime(num);
+}
