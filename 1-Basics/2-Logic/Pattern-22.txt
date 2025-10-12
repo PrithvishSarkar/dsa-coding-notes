@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  for (int i = 0; i < (2 * num - 1); i++) {
+    for (int j = 0; j < (2 * num - 1); j++) {
+      int top = i, bottom = (2 * num - 2 - i), left = j, right = (2 * num - 2 - j);
+      int minValue = min(min(top, bottom), min(left, right));
+      cout << (num - minValue) << " ";
+    }
+    cout << endl;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}

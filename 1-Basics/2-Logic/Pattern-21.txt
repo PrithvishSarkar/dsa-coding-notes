@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void printPattern(int num) {
+  for (int row = 1; row <= num; row++) {
+    if (row == 1 || row == num) {
+      for (int col = 1; col <= num; col++) cout << '*';
+      continue;
+    }
+    cout << endl << '*';
+    for (int col = 1; col <= (num - 2); col++) cout << " ";
+    cout << '*' << endl;
+  }
+}
+
+int main() {
+  int number;
+  cin >> number;
+  printPattern(number);
+  return 0;
+}
