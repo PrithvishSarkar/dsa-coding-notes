@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(2^N) and Space Complexity is O(1).
+int fibonacci(int n) {
+  if (n == 0) return 0;
+  if (n == 1) return 1;
+  return (fibonacci(n - 1) + fibonacci(n - 2));
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+void printFibonacci(int n, int idx) {
+  if (idx > n) return;
+  cout << fibonacci(idx) << " ";
+  printFibonacci(n, idx + 1);
+}
+
+int main() {
+  int n;
+  cin >> n;
+  printFibonacci(n, 0);
+  return 0;
+}
