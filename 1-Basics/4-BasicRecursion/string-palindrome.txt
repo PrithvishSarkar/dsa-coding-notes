@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+bool checkStringPalindrome(string str, int start, int end) {
+  if (start >= end) return true;
+  if (isspace(str[start]) || !isalnum(str[start]))
+    return checkStringPalindrome(str, start + 1, end);
+  if (isspace(str[end]) || !isalnum(str[end]))
+    return checkStringPalindrome(str, start, end - 1);
+  if (tolower(str[start]) != tolower(str[end])) return false;
+  return checkStringPalindrome(str, start + 1, end - 1);
+}
+
+int main() {
+  string str;
+  getline(cin, str);
+  cout << checkStringPalindrome(str, 0, str.length() - 1);
+  return 0;
+}
