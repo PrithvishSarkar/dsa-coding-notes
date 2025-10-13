@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(K) where K is the size of Unordered Map.
+void preCalculateMap(vector < int > & nums, unordered_map < int, int > & mp) {
+  for (auto element: nums) {
+    mp[element]++;
+  }
+}
+
+void printMap(unordered_map < int, int > & mp) {
+  for (auto element: mp) {
+    cout << element.first << ": " << element.second << endl;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  unordered_map < int, int > mp;
+  preCalculateMap(nums, mp);
+  printMap(mp);
+  return 0;
+}
