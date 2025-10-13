@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(K) where K is the size of Unordered Map.
+void preCalculateMap(vector < int > & nums, unordered_map < int, int > & mp) {
+  for (auto element: nums) {
+    mp[element]++;
+  }
+}
+
+int findHighestFrequencyElement(unordered_map < int, int > & mp) {
+  int high = INT_MIN, temp = INT_MIN;
+  for (auto element: mp) {
+    if (element.second > temp) {
+      temp = element.second;
+      high = element.first;
+    }
+  }
+  return high;
+}
+
+int findLowestFrequencyElement(unordered_map < int, int > & mp) {
+  int low = INT_MAX, temp = INT_MAX;
+  for (auto element: mp) {
+    if (element.second < temp) {
+      temp = element.second;
+      low = element.first;
+    }
+  }
+  return low;
+}
+
+void printFrequencies(unordered_map < int, int > & mp) {
+  cout << "Highest Frequency Element is " << findHighestFrequencyElement(mp);
+  cout << endl;
+  cout << "Lowest Frequency Element is " << findLowestFrequencyElement(mp);
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  unordered_map < int, int > mp;
+  preCalculateMap(nums, mp);
+  printFrequencies(mp);
+  return 0;
+}
