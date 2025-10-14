@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int partition(vector < int > & nums, int start, int end);
+
+void input(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+void print(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) cout << nums[index] << " ";
+  cout << endl;
+}
+
+// Time Complexity is O(N*logN) and Space Complexity is O(1).
+void quickSort(vector < int > & nums, int start, int end) {
+  // Base Case.
+  if (start >= end) return;
+
+  // Partitioning the vector.
+  int pivotIndex = partition(nums, start, end);
+
+  // Calling Quick Sort for Left Half.
+  quickSort(nums, start, pivotIndex - 1);
+
+  // Calling Quick Sort for Right Half.
+  quickSort(nums, pivotIndex + 1, end);
+}
+
+int partition(vector < int > & nums, int start, int end) {
+  int pivotIdx = start;
+  int count = 0; // Number of elements smaller than pivot element.
+  for (int idx = start; idx <= end; idx++) {
+    if (nums[idx] < nums[pivotIdx]) count++;
+  }
+  pivotIdx += count; // Updating pivot index.
+  swap(nums[start], nums[pivotIdx]); // Placing pivot element in right place.
+
+  // Placing smaller elements on left and larger elements on right.
+  for (int i = start, j = end; i < pivotIdx, j > pivotIdx;) {
+    if (nums[i] < nums[pivotIdx]) i++;
+    if (nums[j] > nums[pivotIdx]) j--;
+    if (nums[i] > nums[pivotIdx] && nums[j] < nums[pivotIdx])
+      swap(nums[i], nums[j]);
+  }
+  return pivotIdx;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  print(nums, size);
+  quickSort(nums, 0, size - 1);
+  print(nums, size);
+  return 0;
+}
