@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+void print(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) cout << nums[index] << " ";
+  cout << endl;
+}
+
+// Time Comlexity is O(N^2) and Space Complexity is O(1).
+void selectionSort(vector < int > & nums, int n) {
+  for (int i = 0; i < n; i++) {
+    for (int j = (n - 1); j >= i; j--) {
+      if (nums[j] < nums[j - 1]) swap(nums[j], nums[j - 1]);
+    }
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  print(nums, size);
+  selectionSort(nums, size);
+  print(nums, size);
+  return 0;
+}
