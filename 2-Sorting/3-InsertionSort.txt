@@ -35,6 +35,21 @@ void insertionSort(vector < int > & nums, int n) {
   }
 }
 
+// Do not uncomment the below commented code unnecessarily.
+/*
+// Insertion Sort using Recursion.
+void insertionSort(vector < int > & nums, int n, int start) {
+  if (start == n) return;
+  int idx = start - 1;
+  while (idx >= 0) {
+    if (nums[idx] > nums[start]) idx--;
+    else break;
+  }
+  shiftAndPlace(nums, start, idx);
+  insertionSort(nums, n, start + 1);
+}
+*/
+
 int main() {
   int size;
   cin >> size;

@@ -24,6 +24,18 @@ void bubbleSort(vector < int > & nums, int n) {
   }
 }
 
+// Do not uncomment the below commented code unnecessarily.
+/*
+// Bubble Sort using Recursion.
+void bubbleSort(vector < int > & nums, int n) {
+  if (n == 1) return;
+  for (int idx = 0; idx < (n - 1); idx++) {
+    if (nums[idx] > nums[idx + 1]) swap(nums[idx], nums[idx + 1]);
+  }
+  bubbleSort(nums, n - 1);
+}
+*/
+
 int main() {
   int size;
   cin >> size;
