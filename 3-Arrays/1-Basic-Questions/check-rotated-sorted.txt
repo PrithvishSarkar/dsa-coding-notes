@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+bool isArraySortedAndRotated(vector < int > & nums, int start, int end, int jump) {
+  if (start == end) {
+    return (jump <= 1 && nums[0] > nums[end]) ? true : false;
+  }
+  if (nums[start] > nums[start + 1]) jump++;
+  return isArraySortedAndRotated(nums, start + 1, end, jump);
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << isArraySortedAndRotated(nums, 0, size - 1, 0);
+  return 0;
+}
