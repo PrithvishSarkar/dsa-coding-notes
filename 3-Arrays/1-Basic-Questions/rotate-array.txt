@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+void print(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) cout << nums[index] << " ";
+  cout << endl;
+}
+
+void rotate(vector < int > & nums, int steps, int direction) {
+  switch (direction) {
+    case -1:
+      reverse(nums.begin(), nums.begin() + steps);
+      reverse(nums.begin() + steps, nums.end());
+      reverse(nums.begin(), nums.end());
+      break;
+    case 1:
+      reverse(nums.begin(), nums.end());
+      reverse(nums.begin(), nums.begin() + steps);
+      reverse(nums.begin() + steps, nums.end());
+      break;
+    default:
+      break;
+  }
+}
+
+int main() {
+  int size, steps, direction;
+  // Only values allowed are '-1' for 'left' and '1' for 'right'.
+  cin >> size >> steps >> direction;
+  if (direction != -1 && direction != 1) {
+    cout << "Directions can either be 'left' or 'right'!";
+    return -1;
+  }
+  vector < int > nums(size, 0);
+  input(nums, size);
+  print(nums, size); // Array Before Rotation.
+  
+  // `steps -> steps % size` ensures that `steps` belongs to [0, size).
+  rotate(nums, (steps % size), direction);
+  
+  print(nums, size); // Array After Rotation.
+  return 0;
+}
