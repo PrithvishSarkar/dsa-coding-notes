@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+pair < bool, int > searchElement(vector < int > & nums, int size, int target) {
+  bool isElementPresent = false;
+  int presentElementIndex = -1;
+  for (int index = 0; index < size; index++) {
+    if (nums[index] == target) {
+      isElementPresent = true;
+      presentElementIndex = index;
+      break;
+    }
+  }
+  return make_pair(isElementPresent, presentElementIndex);
+}
+
+void printResult(pair < bool, int > & searchResult) {
+  if (searchResult.first) {
+    cout << "Element is present in index `" << searchResult.second << "`" << endl;
+    return;
+  }
+  cout << "Element not found.";
+}
+
+int main() {
+  int size, target;
+  cin >> size >> target;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  pair < bool, int > searchResult = searchElement(nums, size, target);
+  printResult(searchResult);
+  return 0;
+}
