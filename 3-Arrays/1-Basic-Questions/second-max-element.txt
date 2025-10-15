@@ -17,14 +17,14 @@ int findSecondLargestElement(vector < int > & nums, int n) {
   // Finding the largest element.
   int tempIdx = 0;
   while (tempIdx < n) {
-    if (nums[tempIdx] > nums[max_element_idx]) {
-      max_element_idx = tempIdx;
-      tempIdx++;
-    }
+    if (nums[tempIdx] > nums[max_element_idx]) max_element_idx = tempIdx;
+    tempIdx++;
   }
 
   // Finding the second largest element.
   tempIdx = 0;
+  // Reduce the search space if 0th element is largest.
+  if (max_element_idx == 0) second_max_element_idx = 1;
   while (tempIdx < n) {
     if (tempIdx == max_element_idx) {
       tempIdx++;
@@ -32,8 +32,8 @@ int findSecondLargestElement(vector < int > & nums, int n) {
     }
     if (nums[tempIdx] > nums[second_max_element_idx]) {
       second_max_element_idx = tempIdx;
-      tempIdx++;
     }
+    tempIdx++;
   }
   return nums[second_max_element_idx];
 }

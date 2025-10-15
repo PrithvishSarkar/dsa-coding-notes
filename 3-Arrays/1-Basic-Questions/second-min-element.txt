@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+int findSecondSmallestElement(vector < int > & nums, int n) {
+  int min_element_idx = 0, second_min_element_idx = 0;
+
+  // Finding the smallest element.
+  int tempIdx = 0;
+  while (tempIdx < n) {
+    if (nums[tempIdx] < nums[min_element_idx]) min_element_idx = tempIdx;
+    tempIdx++;
+  }
+
+  // Finding the second smallest element.
+  tempIdx = 0;
+  // Reduce the search space if 0th element is smallest.
+  if (min_element_idx == 0) second_min_element_idx = 1;
+  while (tempIdx < n) {
+    if (tempIdx == min_element_idx) {
+      tempIdx++;
+      continue;
+    }
+    if (nums[tempIdx] < nums[second_min_element_idx]) {
+      second_min_element_idx = tempIdx;
+    }
+    tempIdx++;
+  }
+  return nums[second_min_element_idx];
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << findSecondSmallestElement(nums, size);
+  return 0;
+}
