@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+int findSecondLargestElement(vector < int > & nums, int n) {
+  int max_element_idx = 0, second_max_element_idx = 0;
+
+  // Finding the largest element.
+  int tempIdx = 0;
+  while (tempIdx < n) {
+    if (nums[tempIdx] > nums[max_element_idx]) {
+      max_element_idx = tempIdx;
+      tempIdx++;
+    }
+  }
+
+  // Finding the second largest element.
+  tempIdx = 0;
+  while (tempIdx < n) {
+    if (tempIdx == max_element_idx) {
+      tempIdx++;
+      continue;
+    }
+    if (nums[tempIdx] > nums[second_max_element_idx]) {
+      second_max_element_idx = tempIdx;
+      tempIdx++;
+    }
+  }
+  return nums[second_max_element_idx];
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << findSecondLargestElement(nums, size);
+  return 0;
+}
