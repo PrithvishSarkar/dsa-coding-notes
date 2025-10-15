@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+int findLargestElement(vector < int > & nums, int start, int end, int max_element) {
+  if (start > end) return max_element;
+  if (nums[start] > max_element) max_element = nums[start];
+  return findLargestElement(nums, start + 1, end, max_element);
+}
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << findLargestElement(nums, 0, size - 1, INT_MIN);
+  return 0;
+}
