@@ -13,3 +13,8 @@
 
 - Basic Sorting Algorithms: Selection | Bubble | Insertion
 - Advanced Sorting Algorithms: Merge | Quick
+
+## Step-3: Questions on Arrays / Vectors
+
+- Linear Search
+- Array Rotations (left and right)
