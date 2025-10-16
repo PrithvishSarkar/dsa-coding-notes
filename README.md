@@ -18,3 +18,6 @@
 
 - Linear Search
 - Array Rotations (left and right)
+- In-Place Swapping and Copying
+- Unique element using XOR operator
+- Union of two Arrays/Vectors
