@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+void moveZeroes(vector < int > & nums, int n) {
+  int i = -1;
+  if (n <= 1) return;
+  for (int k = 0; k < n; k++) {
+    if (nums[k] == 0) {
+      i = k;
+      break;
+    }
+  }
+  if (i == -1) return;
+  for (int j = (i + 1); j < n; j++) {
+    if (nums[j] != 0)
+      swap(nums[i++], nums[j]);
+  }
+}
+
+void print(vector<int>& nums, int n) {
+  for (int index = 0; index < n; index++) cout << nums[index] << " ";
+  cout << endl;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  moveZeroes(nums, size);
+  print(nums, size);
+  return 0;
+}
