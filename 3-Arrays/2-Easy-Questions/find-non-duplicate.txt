@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+int uniqueNumber(vector < int > & nums, int n) {
+  int requiredNumber = 0;
+  for (int index = 0; index < n; index++) requiredNumber ^= nums[index];
+  return requiredNumber;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << uniqueNumber(nums, size);
+  return 0;
+}
