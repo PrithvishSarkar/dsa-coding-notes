@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < vector < int >> & matrix, int row, int col) {
+  for (int i = 0; i < row; i++) {
+    vector < int > temp(col, 0);
+    for (int j = 0; j < col; j++) {
+      int element;
+      cin >> element;
+      temp[j] = element;
+    }
+    matrix[i] = temp;
+  }
+}
+
+// Time Complexity is O(log(row)) and Space Complexity is O(1).
+int findRowIndex(vector < vector < int >> & matrix, int row, int col, int k) {
+  int rowStartIndex = 0, rowEndIndex = row - 1, rowMidIndex = -1;
+  while (rowStartIndex <= rowEndIndex) {
+    rowMidIndex = rowStartIndex + (rowEndIndex - rowStartIndex) / 2;
+    if (matrix[rowMidIndex][0] > k) rowEndIndex = rowMidIndex - 1;
+    else if (matrix[rowMidIndex][col - 1] < k) rowStartIndex = rowMidIndex + 1;
+    else if (matrix[rowMidIndex][0] <= k && matrix[rowMidIndex][col - 1] >= k)
+      break;
+  }
+  return rowMidIndex;
+}
+
+// Time Complexity is O(log(col)) and Space Complexity is O(1).
+bool binarySearch(vector < int > & nums, int size, int k) {
+  int start = 0, end = size - 1;
+  while (start <= end) {
+    int mid = start + (end - start) / 2;
+    if (nums[mid] < k) start = mid + 1;
+    else if (nums[mid] > k) end = mid - 1;
+    else if (nums[mid] == k) return true;
+  }
+  return false;
+}
+
+// Time Complexity is O(log(row * col)) and Space Complexity is O(1).
+bool isElementPresent(vector < vector < int >> & matrix, int row, int col, int k) {
+  if (k < matrix[0][0] || k > matrix[row - 1][col - 1]) return false;
+  int rowIndex = findRowIndex(matrix, row, col, k);
+  return binarySearch(matrix[rowIndex], col, k);
+}
+
+int main() {
+  int row, col, target;
+  cin >> row >> col >> target;
+  vector < vector < int >> matrix(row);
+  input(matrix, row, col);
+  cout << isElementPresent(matrix, row, col, target);
+  return 0;
+}

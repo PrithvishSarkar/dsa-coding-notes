@@ -16,9 +16,10 @@
 
 ## Step-3: Questions on Arrays / Vectors
 
-- Linear Search
+- Linear Search: 1D Array
 - Array Rotations (left and right)
 - In-Place Swapping and Copying
 - Unique element using XOR operator
 - Union of two Arrays/Vectors
-- Two Sum Problem
+- Two Sum Problem using Two Pointers
+- Binary Search: 1D Array and 2D Matrix
