@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N*logN) and Space Complexity is O(N).
+vector < int > twoSum(vector < int > & nums, int size, int target) {
+  vector < pair < int, int >> temp;
+  for (int index = 0; index < size; index++) {
+    temp.push_back({
+      nums[index],
+      index
+    });
+  }
+  sort(temp.begin(), temp.end());
+  int i = 0, j = temp.size() - 1;
+  while (i < j) {
+    if (temp[i].first + temp[j].first == target)
+      return {
+        temp[i].second,
+        temp[j].second
+      };
+    else if (temp[i].first + temp[j].first < target)
+      i++;
+    else
+      j--;
+  }
+  return {};
+}
+
+int main() {
+  int size, target;
+  cin >> size >> target;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  vector < int > numbers = twoSum(nums, size, target);
+  cout << numbers[0] << " " << numbers[1] << endl;
+  return 0;
+}
