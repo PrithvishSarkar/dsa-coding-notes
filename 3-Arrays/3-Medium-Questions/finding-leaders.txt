@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+void print(vector < int > & leaders, int size) {
+  for (int index = 0; index < size; index++) cout << leaders[index] << " ";
+  cout << endl;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(K) where K is leader vector size.
+vector < int > findLeaders(vector < int > & nums, int n) {
+  int i = 0, j = 1;
+  vector < int > temp;
+  while (i < (n - 1) && j < n) {
+    if (nums[j] >= nums[i]) {
+      i++;
+      j = i + 1;
+      continue;
+    } else j++;
+    if (j == n && i < (n - 1)) {
+      temp.push_back(nums[i]);
+      i++;
+      j = i + 1;
+    }
+  }
+  temp.push_back(nums[n - 1]); // Last element is always a leader.
+  return temp;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  vector < int > leaders = findLeaders(nums, size);
+  print(leaders, leaders.size());
+  return 0;
+}
