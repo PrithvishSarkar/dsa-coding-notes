@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < vector < int >> & matrix, int rows, int cols) {
+  for (int row = 0; row < rows; row++) {
+    vector < int > temp(cols, 0);
+    for (int col = 0; col < cols; col++) {
+      int element;
+      cin >> element;
+      temp[col] = element;
+    }
+    matrix[row] = temp;
+  }
+}
+
+void print(vector < int > & spiral, int n) {
+  for (int index = 0; index < n; index++) cout << spiral[index] << " ";
+  cout << endl;
+}
+
+// Time Complexity is O(rows * cols) and Space Complexity is O(rows * cols).
+vector < int > printSpiral(vector < vector < int >> & matrix, int rows, int cols) {
+  if (matrix.empty()) return {};
+  vector < int > temp;
+  int left = 0, right = cols - 1, top = 0, bottom = rows - 1;
+  while (left <= right && top <= bottom) {
+    // Traversing from left to right.
+    if (top <= bottom) {
+      for (int ptr = left; ptr <= right; ptr++) temp.push_back(matrix[top][ptr]);
+      top++;
+    }
+
+    // Traversing from top to bottom.
+    if (left <= right) {
+      for (int ptr = top; ptr <= bottom; ptr++) temp.push_back(matrix[ptr][right]);
+      right--;
+    }
+
+    // Traversing from right to left.
+    if (top <= bottom) {
+      for (int ptr = right; ptr >= left; ptr--) temp.push_back(matrix[bottom][ptr]);
+      bottom--;
+    }
+
+    // Traversing from bottom to top.
+    if (left <= right) {
+      for (int ptr = bottom; ptr >= top; ptr--) temp.push_back(matrix[ptr][left]);
+      left++;
+    }
+  }
+
+  return temp;
+}
+
+void printMatrix(vector < vector < int >> & matrix, int rows, int cols) {
+  for (int row = 0; row < rows; row++) {
+    for (int col = 0; col < cols; col++) cout << matrix[row][col] << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int rows, cols;
+  cin >> rows >> cols;
+  vector < vector < int >> matrix(rows);
+  input(matrix, rows, cols);
+  vector < int > spiral = printSpiral(matrix, rows, cols);
+  print(spiral, spiral.size());
+  return 0;
+}
