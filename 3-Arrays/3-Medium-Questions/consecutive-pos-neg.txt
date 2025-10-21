@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+void print(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) cout << nums[index] << " ";
+  cout << endl;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(N).
+vector < int > rearrangeArray(vector < int > & nums, int size) {
+  vector < int > temp(size, 0);
+  int positiveIndex = 0, negativeIndex = 1;
+  
+  // positiveIndex will only contain positive numbers, similarly for negativeIndex.
+  for (int index = 0; index < n; index++) {
+    if (nums[index] > 0) {
+      temp[positiveIndex] = nums[index];
+      positiveIndex += 2;
+    } else {
+      temp[negativeIndex] = nums[index];
+      negativeIndex += 2;
+    }
+  }
+  return temp;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  print(nums, size); // Original Array.
+  vector < int > vec = rearrangeArray(nums, size); // Rearranged Array.
+  print(vec, size);
+  return 0;
+}
