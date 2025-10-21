@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < vector < int >> & matrix, int n) {
+  for (int i = 0; i < n; i++) {
+    vector < int > temp(n, 0);
+    for (int j = 0; j < n; j++) {
+      int element;
+      cin >> element;
+      temp[j] = element;
+    }
+    matrix[i] = temp;
+  }
+}
+
+void print(vector < vector < int >> & matrix, int n) {
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) cout << matrix[i][j] << " ";
+    cout << endl;
+  }
+}
+
+// Rotating a matrix by 90 degrees clockwise.
+// Time Complexity is O(N^2) and Space Complexity is O(1).
+void rotateMatrix(vector < vector < int >> & matrix, int n) {
+  // Step-1: Transpose the Matrix.
+  for (int i = 0; i < n; i++) {
+    for (int j = i; j < n; j++) {
+      if (i == j) continue;
+      swap(matrix[i][j], matrix[j][i]);
+    }
+  }
+
+  // Step-2: Reverse all rows.
+  for (int i = 0; i < n; i++) {
+    reverse(matrix[i].begin(), matrix[i].end());
+  }
+}
+
+int main() {
+  int dimension;
+  cin >> dimension;
+  vector < vector < int >> matrix(dimension);
+  input(matrix, dimension);
+  cout << "Original Matrix:" << endl;
+  print(matrix, dimension);
+  rotateMatrix(matrix, dimension);
+  cout << "Rotated Matrix:" << endl;
+  print(matrix, dimension);
+  return 0;
+}
