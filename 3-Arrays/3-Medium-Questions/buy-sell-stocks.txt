@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & prices, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    prices[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+int maxStockProfit(vector < int > & prices, int n) {
+  // Find the minimum and subtract the maximum which is to the right of minimum.
+  int minimal = prices[0], profit = 0;
+  for (int index = 1; index < n; index++) {
+    int cost = prices[index] - minimal;
+    profit = max(profit, cost);
+    minimal = min(minimal, prices[index]);
+  }
+  return profit;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > prices(size, 0);
+  input(prices, size);
+  cout << maxStockProfit(prices, size);
+  return 0;
+}
