@@ -24,3 +24,4 @@
 - Two Sum Problem using Two Pointers
 - Binary Search: 1D Array and 2D Matrix
 - 2D Matrix Spiral Printing and Rotation
+- Kadane's Algorithms for Maximum Subarray

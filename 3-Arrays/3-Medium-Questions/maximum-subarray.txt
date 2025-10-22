@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Kadane's Algorithm for Maximum Subarray.
+// Time Complexity is O(N) and Space Complexity is O(1).
+int maxSubArray(vector < int > & nums, int size) {
+  if (size == 1) return nums[0];
+  int maxSum = INT_MIN, tempSum = 0;
+  for (int index = 0; index < size; index++) {
+    tempSum += nums[index];
+    if (tempSum > maxSum) maxSum = tempSum;
+    if (tempSum < 0) tempSum = 0;
+  }
+  return maxSum;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << maxSubArray(nums, size);
+  return 0;
+}
