@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Asked in Google Interview Question.
+// Time Complexity is O(min(m, n)) and Space Complexity is O(1).
+int combination(int a, int b) {
+  if (b == 0) return 1;
+  if (b == 1) return a;
+  double n = 1;
+  while (b > 0) {
+    n *= double(a) / double(b);
+    a--;
+    b--;
+  }
+  n = round(n);
+  return int(n);
+}
+
+int main() {
+  int m, n;
+  cin >> m >> n;
+  /*
+  Formula to find the number of unique paths using combinatorics is:
+  (m + n - 2)C(m - 1)
+  */
+  cout << combination(m + n - 2, min(m - 1, n - 1));
+  return 0;
+}
