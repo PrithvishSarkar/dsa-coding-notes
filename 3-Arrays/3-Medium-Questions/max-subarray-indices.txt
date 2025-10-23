@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Kadane's Algorithm for Maximum Sub-Array (Extended).
+// Time Complexity is O(N) and Space Complexity is O(1).
+pair < pair < int, int > , int > maxSubArrayIndices(vector < int > & nums, int size) {
+  if (size == 1) return make_pair(make_pair(0, 0), nums[0]);
+  int start = -1, end = -1;
+  int maxSum = INT_MIN, tempSum = 0;
+  for (int index = 0; index < size; index++) {
+    if (tempSum == 0) start = index;
+    tempSum += nums[index];
+    if (tempSum > maxSum) {
+      maxSum = tempSum;
+      end = index;
+    }
+    if (tempSum < 0)
+      tempSum = 0;
+  }
+  return make_pair(make_pair(start, end), maxSum);
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  
+  pair < pair < int, int > , int > values = maxSubArrayIndices(nums, size);
+  pair < int, int > indices = values.first;
+  int maximumSum = values.second;
+  
+  cout << "Indices are: " << indices.first << " and " << indices.second << endl;
+  cout << "Maximum Sum is: " << maximumSum << endl;
+  return 0;
+}
