@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+vector < int > majorityElement(vector < int > & nums, int n) {
+  // Extended Boyer-Moore Voting Algorithm.
+  /*
+  There can be atmost 2 majority elements as we're considering floor(n/3) frequency.
+  Generalization: There can be atmost (k - 1) majority elements if we consider the
+  frequency floor(n/k) where 'k' is a positive integer.
+  */
+
+  int ele1 = INT_MIN, ele2 = INT_MIN; // Randomly assigning values.
+  int count1 = 0, count2 = 0; // Initializing Count to Zero.
+  // Traversing the array to find possible majority element(s).
+  for (int idx = 0; idx < n; idx++) {
+    if (count1 == 0 && ele2 != nums[idx]) {
+      // Make sure to keep both elements unique.
+      count1++;
+      ele1 = nums[idx];
+    }
+    else if (count2 == 0 && ele1 != nums[idx]) {
+      count2++;
+      ele2 = nums[idx];
+    }
+    else if (ele1 == nums[idx]) count1++;
+    else if (ele2 == nums[idx]) count2++;
+    else {
+      count1--;
+      count2--;
+    }
+  }
+  // Reinitializing the count values.
+  count1 = 0;
+  count2 = 0;
+  // Traversing the array to count the majority element's frequency.
+  for (int idx = 0; idx < n; idx++) {
+    if (ele1 == nums[idx]) count1++;
+    else if (ele2 == nums[idx]) count2++;
+  }
+  vector < int > result;
+  if (count1 > (n / 3)) result.push_back(ele1);
+  if (count2 > (n / 3)) result.push_back(ele2);
+  return result;
+}
+
+void print(vector < int > & vec, int m) {
+  for (int index = 0; index < m; index++) cout << vec[index] << " ";
+  cout << endl;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  vector < int > elements = majorityElement(nums, size);
+  print(elements, elements.size());
+  return 0;
+}
