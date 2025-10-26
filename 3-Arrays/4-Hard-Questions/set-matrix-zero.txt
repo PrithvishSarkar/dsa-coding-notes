@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < vector < int >> & matrix, int rows, int cols) {
+  for (int row = 1; row <= rows; row++) {
+    vector < int > temp(cols, 0);
+    for (int col = 1; col <= cols; col++) {
+      int element;
+      cin >> element;
+      temp[col - 1] = element;
+    }
+    matrix[row - 1] = temp;
+  }
+}
+
+void print(vector < vector < int >> & matrix, int rows, int cols) {
+  for (int row = 1; row <= rows; row++) {
+    for (int col = 1; col <= cols; col++) cout << matrix[row - 1][col - 1] << " ";
+    cout << endl;
+  }
+}
+
+// Time Complexity is O(rows * cols) and Space Complexity is O(K) where K is the size of 'temp' Vector.
+void setZeros(vector < vector < int >> & matrix, int rows, int cols) {
+  vector < pair < int, int >> temp;
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      if (matrix[i][j] == 0) temp.push_back(make_pair(i, j));
+    }
+  }
+  if(temp.size() == 0) return;
+  for (auto indices: temp) {
+    for (int idx = 0; idx < cols; idx++) matrix[indices.first][idx] = 0;
+    for (int idx = 0; idx < rows; idx++) matrix[idx][indices.second] = 0;
+  }
+}
+
+int main() {
+  int rows, cols;
+  cin >> rows >> cols;
+  vector < vector < int >> matrix(rows);
+  input(matrix, rows, cols);
+  print(matrix, rows, cols);
+
+  setZeros(matrix, rows, cols);
+  cout << endl;
+  print(matrix, rows, cols);
+  return 0;
+}

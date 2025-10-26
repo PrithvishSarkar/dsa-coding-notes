@@ -26,3 +26,4 @@
 - 2D Matrix Spiral Printing and Rotation
 - Kadane's Algorithms (Max Sub-Array Sum)
 - Dutch National Flag Algorithm
+- Boyer-Moore Voting Algorithm
