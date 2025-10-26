@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(N).
+int longestConsecutiveSubsequence(vector < int > & nums, int n) {
+  if (n == 0) return 0;
+  if (n == 1) return 1;
+  int maxCount = 1;
+  unordered_set < int > nums_set;
+  for (int idx = 0; idx < n; idx++) nums_set.insert(nums[idx]);
+  for (auto element: nums_set) {
+    if (nums_set.find(element - 1) == nums_set.end()) {
+      int count = 1;
+      int temp = element;
+      while (nums_set.find(temp + 1) != nums_set.end()) {
+        count++;
+        temp += 1;
+      }
+      maxCount = max(maxCount, count);
+    }
+  }
+  return maxCount;
+}
+
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << longestConsecutiveSubsequence(nums, size);
+  return 0;
+}
