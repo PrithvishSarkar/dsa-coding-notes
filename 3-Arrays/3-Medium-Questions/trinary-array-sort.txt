@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+void print(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) cout << nums[index] << " ";
+  cout << endl;
+}
+
+// Dutch National Flag Algorithm (Simplified Version).
+// Time Complexity is O(N) and Space Complexity is O(1).
+void sortArray(vector < int > & nums, int n) {
+  int low = 0, high = n - 1, index = 0;
+  while (index <= high) {
+    switch (nums[index]) {
+      case 0:
+        swap(nums[index], nums[low]);
+        index++;
+        low++;
+        break;
+      case 1:
+        index++;
+        break;
+      case 2:
+        swap(nums[index], nums[high]);
+        high--;
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  sortArray(nums, size);
+  print(nums, size);
+  return 0;
+}
