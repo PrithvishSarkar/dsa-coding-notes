@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+vector < int > pascalTriangleNumbers(int row, vector < vector < int >> & nums) {
+  int numsLastIdx = nums.size() - 1;
+  vector < int > temp(row, 0);
+  temp[0] = 1;
+  temp[row - 1] = 1;
+  int idx = 1;
+  while (idx < (row - 1)) {
+    temp[idx] = nums[numsLastIdx][idx - 1] + nums[numsLastIdx][idx];
+    idx++;
+  }
+  return temp;
+}
+
+// Time Complexity is O(N^2) and Space Complexity is O(N).
+vector < vector < int >> pascalTriangle(int numRows) {
+  if (numRows == 1) return {{1}};
+  if (numRows == 2) return {{1},{1, 1}};
+  vector < vector < int >> nums = {{1},{1, 1}};
+  for (int row = 3; row <= numRows; row++) {
+    vector < int > temp = pascalTriangleNumbers(row, nums);
+    nums.push_back(temp);
+  }
+  return nums;
+}
+
+void print(vector < vector < int >> & value, int size) {
+  for (int row = 0; row < size; row++) {
+    int n = value[row].size();
+    for (int col = 0; col < n; col++) cout << value[row][col] << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int numRows;
+  cin >> numRows;
+  vector < vector < int >> value = pascalTriangle(numRows);
+  print(value, value.size());
+  return 0;
+}

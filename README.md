@@ -16,12 +16,13 @@
 
 ## Step-3: Questions on Arrays / Vectors
 
-- Linear Search: 1D Array
+- Linear Search in 1D Array/Vector
 - Array Rotations (left and right)
 - In-Place Swapping and Copying
 - Unique element using XOR operator
 - Union of two Arrays/Vectors
 - Two Sum Problem using Two Pointers
-- Binary Search: 1D Array and 2D Matrix
+- Binary Search in 1D Array and 2D Matrix
 - 2D Matrix Spiral Printing and Rotation
-- Kadane's Algorithms for Maximum Subarray
+- Kadane's Algorithms (Max Sub-Array Sum)
+- Dutch National Flag Algorithm
