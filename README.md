@@ -27,3 +27,4 @@
 - Kadane's Algorithms (Max Sub-Array Sum)
 - Dutch National Flag Algorithm
 - Boyer-Moore Voting Algorithm
+- Sliding Window Algorithm for Sub-Array
