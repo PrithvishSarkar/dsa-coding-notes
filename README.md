@@ -28,3 +28,7 @@
 - Dutch National Flag Algorithm
 - Boyer-Moore Voting Algorithm
 - Sliding Window Algorithm for Sub-Array
+
+## Step-4: Binary Search on Arrays and Matices
+
+- Recursive Binary Search Calls

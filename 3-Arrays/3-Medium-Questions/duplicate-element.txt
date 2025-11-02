@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N*logN) and Space Complexity is O(1).
+int findDuplicate(vector < int > & nums, int size) {
+  // Cannot use XOR method as a number can appear more than twice.
+  sort(nums.begin(), nums.end());
+  for (int i = 0; i < (size - 1); i++) {
+    if (nums[i] == nums[i + 1])
+      return nums[i];
+  }
+  return -1;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << findDuplicate(nums, size);
+  return 0;
+}
