@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Lower Bound: arr[min_ele_idx] >= x
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int lowerBound(vector < int > & nums, int n, int x) {
+  // Since the vector 'nums' is sorted, I can use Binary Search here.
+  int low = 0, high = n - 1, idx = n;
+  while (low <= high) {
+    int mid = low + (high - low) / 2;
+    if (nums[mid] >= x) {
+      idx = mid;
+      high = mid - 1;
+    }
+    else low = mid + 1;
+  }
+  return idx;
+}
+
+void print(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) cout << nums[index] << " ";
+  cout << endl;
+}
+
+int main() {
+  int size, bound;
+  cin >> size >> bound;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  sort(nums.begin(), nums.end()); // Making Array Sorted in Ascending Order.
+  print(nums, size);
+  cout << lowerBound(nums, size, bound);
+  return 0;
+}
