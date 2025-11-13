@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+void print(vector < int > & nums, int size) {
+  for (int idx = 0; idx < size; idx++) cout << nums[idx] << " ";
+  cout << endl;
+}
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+// Floor of an Array: arr[max_ele_idx] <= target
+int floorElement(vector < int > & nums, int n, int k) {
+  if (k < nums[0]) return -1;
+  int low = 0, high = n - 1, idx = -1;
+  while (low <= high) {
+    int mid = low + (high - low) / 2;
+    if (nums[mid] <= k) {
+      idx = mid;
+      low = mid + 1;
+    } else high = mid - 1;
+  }
+  return nums[idx];
+}
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+// Ceil of an Array: arr[min_ele_idx] >= target
+int ceilElement(vector < int > & nums, int n, int k) {
+  if (k > nums[n - 1]) return -1;
+  int low = 0, high = n - 1, idx = -1;
+  while (low <= high) {
+    int mid = low + (high - low) / 2;
+    if (nums[mid] >= k) {
+      idx = mid;
+      high = mid - 1;
+    } else low = mid + 1;
+  }
+  return nums[idx];
+}
+
+int main() {
+  int size, target;
+  cin >> size >> target;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  sort(nums.begin(), nums.end()); // Sorting Array in Ascending Order.
+  print(nums, size);
+  cout << floorElement(nums, size, target) << endl;
+  cout << ceilElement(nums, size, target) << endl;
+  return 0;
+}
