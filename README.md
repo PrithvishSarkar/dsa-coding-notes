@@ -32,3 +32,4 @@
 ## Step-4: Binary Search on Arrays and Matices
 
 - Recursive Binary Search Calls
+- Lower and Upper Bounds
