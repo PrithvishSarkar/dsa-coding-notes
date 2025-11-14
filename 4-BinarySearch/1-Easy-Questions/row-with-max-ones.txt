@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < vector < int >> & matrix, int rows, int cols) {
+  for (int row = 1; row <= rows; row++) {
+    vector < int > temp(cols, 0);
+    for (int col = 1; col <= cols; col++) {
+      int element;
+      cin >> element;
+      temp[col - 1] = element;
+    }
+    matrix[row - 1] = temp;
+  }
+}
+
+// Time Complexity is O(logC) and Space Complexity is O(1).
+int onesCount(vector < int > & nums, int n) {
+  // The array is sorted so I can use Binary Search.
+  // Algo: Find the first occurance of `1` then `n - idx` is the number of ones.
+  int low = 0, high = n - 1;
+  while (low <= high) {
+    int mid = (low + high) / 2;
+    if (nums[mid] == 1) high = mid - 1;
+    else low = mid + 1;
+  }
+  return (n - low);
+}
+
+// Time Complexity is O(R * logC) and Space Complexity is O(1).
+int rowWithMaximumOnes(vector < vector < int >> & matrix, int rows, int cols) {
+  pair < int, int > rowDetails = {
+    -1,
+    0
+  }; // rowDetails -> {index, onesCount}
+  for (int row = 1; row <= rows; row++) {
+    int count = onesCount(matrix[row - 1], cols);
+    if (count > rowDetails.second) {
+      rowDetails.first = row - 1;
+      rowDetails.second = count;
+    }
+  }
+  return rowDetails.first;
+}
+
+int main() {
+  int rows, cols;
+  cin >> rows >> cols;
+  vector < vector < int >> matrix(rows);
+  input(matrix, rows, cols);
+  cout << rowWithMaximumOnes(matrix, rows, cols);
+  return 0;
+}
