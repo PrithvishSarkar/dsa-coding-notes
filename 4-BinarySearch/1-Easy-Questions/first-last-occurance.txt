@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+vector < int > searchIndices(vector < int > & nums, int n, int k) {
+  if (n == 0) return {-1, -1};
+
+  int firstLow = 0, firstHigh = n - 1, secondLow = 0, secondHigh = n - 1;
+  int firstIdx = -1, secondIdx = -1;
+  // First Loop to find lower index (if it exists).
+  while (firstLow <= firstHigh) {
+    int mid = (firstLow + firstHigh) / 2;
+    if (nums[mid] == k) {
+      firstIdx = mid;
+      firstHigh = mid - 1;
+    } else if (nums[mid] < k) firstLow = mid + 1;
+    else firstHigh = mid - 1;
+  }
+  // Second Loop to find higher index (if it exists).
+  while (secondLow <= secondHigh) {
+    int mid = (secondLow + secondHigh) / 2;
+    if (nums[mid] == k) {
+      secondIdx = mid;
+      secondLow = mid + 1;
+    } else if (nums[mid] < k) secondLow = mid + 1;
+    else secondHigh = mid - 1;
+  }
+  return {
+    firstIdx,
+    secondIdx
+  };
+}
+
+int main() {
+  int size, target;
+  cin >> size >> target;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  vector < int > indices = searchIndices(nums, size, target);
+  for (auto element: indices) cout << element << " ";
+  return 0;
+}
