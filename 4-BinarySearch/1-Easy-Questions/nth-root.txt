@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int rootNumber(int num, int root) {
+  int low = 0, high = num;
+  while (low <= high) {
+    int mid = (low + high) / 2;
+    int number = pow(mid, root);
+    if (number == num) return mid;
+    else if (number > num) high = mid - 1;
+    else low = mid + 1;
+  }
+  return -1;
+}
+
+int main() {
+  int number, root;
+  cin >> number >> root;
+  cout << rootNumber(number, root);
+  return 0;
+}
