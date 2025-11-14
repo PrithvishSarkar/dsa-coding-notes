@@ -34,3 +34,4 @@
 - Recursive Binary Search Calls
 - Array's Lower and Upper Bounds
 - Floor and Ceil of an Array
+- Rotated Sorted Array Search
