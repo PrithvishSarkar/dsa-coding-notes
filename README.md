@@ -35,3 +35,5 @@
 - Array's Lower and Upper Bounds
 - Floor and Ceil of an Array
 - Rotated Sorted Array Search
+- Rotated Sorted Array Rotations
+- Unique Element using Binary Search
