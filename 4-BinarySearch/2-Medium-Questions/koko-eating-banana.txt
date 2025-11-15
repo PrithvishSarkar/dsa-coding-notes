@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & piles, int n) {
+  for (int index = 0; index < n; index++) {
+    int element;
+    cin >> element;
+    piles[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+long long calculateHours(vector < int > & piles, int n, int k) {
+  long long hours = 0;
+  for (int idx = 0; idx < n; idx++) {
+    int element = piles[idx];
+    if (element < k) hours++;
+    else hours += 1 + (element - 1) / k;
+  }
+  return hours;
+}
+
+// Time Complexity is O(N * logM) and Space Complexity is O(1).
+// Here N is Array Size and M is Maximum Array Element.
+int minEatingSpeed(vector < int > & piles, int n, int h) {
+  if (n == 1)
+    return ceil(double(piles[0]) / double(h));
+  if (n == h)
+    return * max_element(piles.begin(), piles.end());
+  long lowestSpeed = 1, highestSpeed = * max_element(piles.begin(), piles.end());
+  while (lowestSpeed <= highestSpeed) {
+    int speed = lowestSpeed + (highestSpeed - lowestSpeed) / 2;
+    long long hours = calculateHours(piles, n, speed);
+    if (hours <= h)
+      highestSpeed = speed - 1;
+    else
+      lowestSpeed = speed + 1;
+  }
+  return lowestSpeed;
+}
+
+int main() {
+  int size, hours;
+  cin >> size >> hours;
+  vector < int > piles(size, 0);
+  input(piles, size);
+  cout << minEatingSpeed(piles, size, hours);
+  return 0;
+}
