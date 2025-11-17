@@ -40,3 +40,5 @@
 - Square Root and n-th Root of a number
 
 ## Step-6: Linked List - Single/Double/Circular
+
+- LL and DLL Traversal
