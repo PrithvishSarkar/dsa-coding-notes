@@ -57,14 +57,13 @@ void input(List & nums, int size, int direction) {
 }
 
 // Time Complexity is O(N) and Space Complexity is O(1).
-int listLength(Node * head) {
-  int length = 0;
-  Node* temp = head;
+bool findElement(Node * head, int k) {
+  Node * temp = head;
   while (temp != nullptr) {
-    length++;
+    if (temp -> data == k) return true;
     temp = temp -> next;
   }
-  return length;
+  return false;
 }
 
 int main() {
@@ -75,6 +74,9 @@ int main() {
   input(nums, size, direction);
   /* ----- DESIGNING LINKED LIST ENDS HERE -----  */
 
-  cout << "Linked List length is: " << listLength(nums.getHead());
+  int target;
+  cin >> target;
+  string isPresent = findElement(nums.getHead(), target) ? "true" : "false";
+  cout << isPresent;
   return 0;
 }
