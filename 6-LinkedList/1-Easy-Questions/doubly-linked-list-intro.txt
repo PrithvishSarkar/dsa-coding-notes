@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public:
+  int data;
+  Node * prev;
+  Node * next;
+    Node(int data) {
+      this -> data = data;
+      prev = nullptr;
+      next = nullptr;
+    }
+};
+
+class DLL {
+  Node * head;
+  Node * tail;
+  public:
+    DLL() {
+      head = nullptr;
+      tail = nullptr;
+    }
+  void push_front(int data) {
+    Node * ptr = new Node(data);
+    if (head == nullptr && tail == nullptr) {
+      head = ptr;
+      tail = ptr;
+    } else {
+      ptr -> next = head;
+      head -> prev = ptr;
+      head = ptr;
+    }
+  }
+  void push_back(int data) {
+    Node * ptr = new Node(data);
+    if (head == nullptr && tail == nullptr) {
+      head = ptr;
+      tail = ptr;
+    } else {
+      tail -> next = ptr;
+      ptr -> prev = tail;
+      tail = ptr;
+    }
+  }
+  Node * getHead() {
+    return head;
+  }
+};
+
+void input(DLL & nums, int size, int direction) {
+  if (direction != -1 && direction != 1) {
+    cout << "Invalid Direction. \nDirection can have only '-1' and '1' values.";
+    return;
+  }
+  for (int num = 1; num <= size; num++) {
+    int element;
+    cin >> element;
+    direction == -1 ? nums.push_front(element) : nums.push_back(element);
+  }
+}
+
+void print(Node * head) {
+  Node * temp = head;
+  while (temp != nullptr) {
+    cout << temp -> data << " ";
+    temp = temp -> next;
+  }
+  cout << endl;
+}
+
+int listLength(Node * head) {
+  int length = 0;
+  Node * temp = head;
+  while (temp != nullptr) {
+    length++;
+    temp = temp -> next;
+  }
+  return length;
+}
+
+int main() {
+  /* ----- DESIGNING DOUBLY LINKED LIST STARTS HERE -----  */
+  int size, direction; // direction: `-1` -> front and `1` -> back
+  cin >> size >> direction;
+  DLL nums;
+  input(nums, size, direction);
+  /* ----- DESIGNING DOUBLY LINKED LIST ENDS HERE -----  */
+
+  print(nums.getHead());
+  cout << "Length of DLL is: " << listLength(nums.getHead());
+  return 0;
+}
