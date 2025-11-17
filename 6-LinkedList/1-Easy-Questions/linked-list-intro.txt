@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  Node * head;
+  Node * tail;
+  public:
+    List() {
+      head = nullptr;
+      tail = nullptr;
+    }
+  void push_front(int data) {
+    Node * ptr = new Node(data);
+    if (head == nullptr && tail == nullptr) {
+      head = ptr;
+      tail = ptr;
+    } else {
+      ptr -> next = head;
+      head = ptr;
+    }
+  }
+  void push_back(int data) {
+    Node * ptr = new Node(data);
+    if (head == nullptr && tail == nullptr) {
+      head = ptr;
+      tail = ptr;
+    } else {
+      tail -> next = ptr;
+      tail = ptr;
+    }
+  }
+  Node * getHead() {
+    return head;
+  }
+};
+
+void input(List & nums, int size, int direction) {
+  if (direction != -1 || direction != 1) {
+    cout << "Invalid Direction. \nDirection can have only '-1' and '1' values.";
+    return;
+  }
+  for (int num = 1; num <= size; num++) {
+    int element;
+    cin >> element;
+    direction == -1 ? nums.push_front(element) : nums.push_back(element);
+  }
+}
+
+void print(Node * head) {
+  Node * temp = head;
+  while (temp != nullptr) {
+    cout << temp -> data << " ";
+    temp = temp -> next;
+  }
+}
+
+int main() {
+  int size, direction; // direction: `-1` -> front and `1` -> back
+  cin >> size >> direction;
+  List nums;
+  input(nums, size, direction);
+  print(nums.getHead()); // Printing the Linked List using its 'head'.
+  return 0;
+}

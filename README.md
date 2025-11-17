@@ -38,3 +38,5 @@
 - Rotated Sorted Array Rotations
 - Unique Element using Binary Search
 - Square Root and n-th Root of a number
+
+## Step-6: Linked List - Single/Double/Circular
