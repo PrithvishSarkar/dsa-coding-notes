@@ -41,4 +41,5 @@
 
 ## Step-6: Linked List - Single/Double/Circular
 
-- LL and DLL Traversal
+- LL and DLL Traversal using 'head'
+- Reversing LL and DLL (in-place)

@@ -71,6 +71,7 @@ void print(Node * head) {
 
 // Time Complexity is O(N) and Space Complexity is O(1).
 Node * reverseDLL(Node * head) {
+  if (head == nullptr || head -> next == nullptr) return head;
   Node * prevPtr = head -> prev;
   Node * currentPtr = head;
   while (currentPtr != nullptr) {
