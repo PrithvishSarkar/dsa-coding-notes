@@ -43,3 +43,5 @@
 
 - LL and DLL Traversal using 'head'
 - Reversing LL and DLL (in-place)
+- Adding Two Linked List Numbers
+- Sorting LL elements in Linear Time
