@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  Node * head;
+  Node * tail;
+  public:
+    List() {
+      head = nullptr;
+      tail = nullptr;
+    }
+  void push_front(int);
+  void push_back(int);
+  Node * getHead() {
+    return head;
+  }
+};
+
+void List::push_front(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  ptr -> next = head;
+  head = ptr;
+}
+
+void List::push_back(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void print(Node * head) {
+  Node * temp = head;
+  while (temp != nullptr) {
+    cout << temp -> data << " ";
+    temp = temp -> next;
+  }
+  cout << endl;
+}
+
+void input(List & LL, int n, int k) {
+  if (k != -1 && k != 1) {
+    cout << "Direction must be either '-1' or '1'.";
+    exit(-1);
+  }
+  while (n) {
+    int element;
+    cin >> element;
+    k == -1 ? LL.push_front(element) : LL.push_back(element);
+    n--;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+Node * reverseList(Node * left, Node * curr, Node * right) {
+  if (curr == nullptr) return left;
+
+  curr -> next = left;
+  left = curr;
+  curr = right;
+  if (right != nullptr) right = right -> next;
+  return reverseList(left, curr, right);
+}
+
+int main() {
+  int size, direction; // direction -> '-1': front and '1': back.
+  cin >> size >> direction;
+  List LL;
+  input(LL, size, direction);
+
+  cout << "Before Reversal: ";
+  print(LL.getHead()); // Before Reversal.
+
+  cout << "After Reversal: ";
+  Node * head = LL.getHead();
+  Node * newHead = reverseList(nullptr, head, head -> next);
+  print(newHead); // After Reversal.
+  return 0;
+}
