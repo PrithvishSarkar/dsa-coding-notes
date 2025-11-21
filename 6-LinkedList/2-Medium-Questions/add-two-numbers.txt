@@ -1,0 +1,118 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  Node * head;
+  Node * tail;
+  public:
+    List() {
+      head = nullptr;
+      tail = nullptr;
+    }
+  void insert(int);
+  Node * getHead() {
+    return head;
+  }
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL, int n) {
+  while (n) {
+    int element;
+    cin >> element;
+    LL.insert(element);
+    n--;
+  }
+}
+
+void print(Node * head) {
+  Node * temp = head;
+  while (temp != nullptr) {
+    cout << temp -> data << " ";
+    temp = temp -> next;
+  }
+  cout << endl;
+}
+
+// Time Complexity is O(max(N, M)) and Space Complexity is O(max(N, M)).
+Node * addTwoNumbers(Node * head1, Node * head2) {
+  List LL;
+
+  int carry = 0;
+  while (head1 != nullptr && head2 != nullptr) {
+    int value1 = head1 -> data, value2 = head2 -> data;
+    int num = (value1 + value2 + carry) % 10;
+    carry = (value1 + value2 + carry) / 10;
+
+    LL.insert(num);
+
+    head1 = head1 -> next;
+    head2 = head2 -> next;
+  }
+
+  // Loop runs only if first Linked List is longer.
+  while (head1 != nullptr) {
+    int value = head1 -> data;
+    int num = (value + carry) % 10;
+    carry = (value + carry) / 10;
+
+    LL.insert(num);
+
+    head1 = head1 -> next;
+  }
+
+  // Loop runs only if second Linked List is longer.
+  while (head2 != nullptr) {
+    int value = head2 -> data;
+    int num = (value + carry) % 10;
+    carry = (value + carry) / 10;
+
+    LL.insert(num);
+
+    head2 = head2 -> next;
+  }
+
+  // Include the 'carry' value if present.
+  if (carry == 1) LL.insert(carry);
+
+  return LL.getHead();
+}
+
+int main() {
+  // First Linked List.
+  int size1;
+  cin >> size1;
+  List LL1;
+  input(LL1, size1);
+
+  // Second Linked List.
+  int size2;
+  cin >> size2;
+  List LL2;
+  input(LL2, size2);
+
+  Node * head = addTwoNumbers(LL1.getHead(), LL2.getHead());
+  print(head);
+  return 0;
+}
