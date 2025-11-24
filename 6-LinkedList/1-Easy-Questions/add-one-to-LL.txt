@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  Node * head;
+  Node * tail;
+
+  public:
+    List() {
+      head = nullptr;
+      tail = nullptr;
+    }
+
+  void insert(int);
+  Node * getHead() {
+    return head;
+  };
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL, int n) {
+  while (n) {
+    int element;
+    cin >> element;
+    LL.insert(element);
+    n--;
+  }
+}
+
+void print(Node * head) {
+  Node * ptr = head;
+  while (ptr != nullptr) {
+    cout << ptr -> data << " ";
+    ptr = ptr -> next;
+  }
+  cout << endl;
+}
+
+Node * reverseList(Node * head) {
+  Node * left = nullptr;
+  Node * current = head;
+  Node * right = head -> next;
+
+  while (current != nullptr) {
+    current -> next = left;
+    left = current;
+    current = right;
+    if (right != nullptr) right = right -> next;
+  }
+  return left;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1)
+Node * addOne(Node * head) {
+  Node * reversedListHead = reverseList(head);
+  Node * temp = reversedListHead;
+
+  int carry = 0;
+  int value = temp -> data;
+  temp -> data = (value + 1) % 10;
+  carry = (value + 1) / 10;
+
+  if (carry == 0) return reverseList(reversedListHead);
+  while (carry != 0) {
+    temp = temp -> next;
+    int value = temp -> data;
+    temp -> data = (value + carry) % 10;
+    carry = (value + carry) / 10;
+  }
+  return reverseList(reversedListHead);
+}
+
+int main() {
+  int size;
+  cin >> size;
+  List LL;
+  input(LL, size);
+
+  Node * head = addOne(LL.getHead());
+  print(head);
+  return 0;
+}
