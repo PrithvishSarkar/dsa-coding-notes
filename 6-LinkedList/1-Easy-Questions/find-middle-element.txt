@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  Node * head;
+  Node * tail;
+
+  public:
+    List() {
+      head = nullptr;
+      tail = nullptr;
+    }
+
+  void insert(int);
+  Node * getHead() {
+    return head;
+  };
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL, int size) {
+  while (size) {
+    int element;
+    cin >> element;
+    LL.insert(element);
+    size--;
+  }
+}
+
+int findLength(Node * head) {
+  int count = 0;
+  Node * temp = head;
+  while (temp != nullptr) {
+    count++;
+    temp = temp -> next;
+  }
+  return count;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+Node * middleNode(Node * head) {
+  int length = findLength(head);
+  int iterations = length / 2;
+  Node * temp = head;
+  while (iterations) {
+    temp = temp -> next;
+    iterations--;
+  }
+  return temp;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  List LL;
+  input(LL, size);
+  
+  Node * ptr = middleNode(LL.getHead());
+  cout << ptr -> data;
+  return 0;
+}
