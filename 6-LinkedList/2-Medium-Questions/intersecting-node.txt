@@ -1,0 +1,141 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  Node * head;
+  Node * tail;
+
+  public:
+    List() {
+      head = nullptr;
+      tail = nullptr;
+    }
+
+  void insert(int);
+  Node * getHead() {
+    return head;
+  };
+  Node * getTail() {
+    return tail;
+  }
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL1, int size1, int skip1, List & LL2, int size2, int skip2) {
+  List LL; // Common Linked List between the two Linked Lists.
+
+  // Input First List.
+  int sz = size1 - skip1;
+  while (skip1) {
+    skip1--;
+    int element;
+    cin >> element;
+    LL1.insert(element);
+  }
+
+  // Creating the common Linked List.
+  while (sz) {
+    sz--;
+    int element;
+    cin >> element;
+    LL.insert(element);
+  }
+
+  // Input Second List.
+  while (skip2) {
+    skip2--;
+    int element;
+    cin >> element;
+    LL2.insert(element);
+  }
+
+  // Connecting First and Second Lists with the common List.
+  Node * tail1 = LL1.getTail();
+  Node * tail2 = LL2.getTail();
+  Node * head = LL.getHead();
+  tail1 -> next = head;
+  tail2 -> next = head;
+}
+
+int getListLength(Node * head) {
+  int length = 0;
+  Node * ptr = head;
+  while (ptr != nullptr) {
+    length++;
+    ptr = ptr -> next;
+  }
+  return length;
+}
+
+// Time Complexity is O(M + N) and Space Complexity is O(1)
+Node * getIntersectionNode(Node * headA, Node * headB) {
+  int lengthA = getListLength(headA);
+  int lengthB = getListLength(headB);
+
+  Node * ptrA = headA;
+  Node * ptrB = headB;
+  if (lengthA > lengthB) {
+    int skip = lengthA - lengthB;
+    while (skip) {
+      skip--;
+      ptrA = ptrA -> next;
+    }
+  } else {
+    int skip = lengthB - lengthA;
+    if (skip > 0) {
+      while (skip) {
+        skip--;
+        ptrB = ptrB -> next;
+      }
+    }
+  }
+  
+  while (ptrA != nullptr && ptrB != nullptr) {
+    if (ptrA == ptrB) return ptrA; // or 'ptrB'.
+    ptrA = ptrA -> next;
+    ptrB = ptrB -> next;
+  }
+  
+  // Return Null Pointer if there nothing in common.
+  return nullptr;
+}
+
+int main() {
+  /* == First List Starts Here == */
+  int size1, skip1;
+  cin >> size1 >> skip1;
+  List LL1;
+  /* == First List Ends Here == */
+
+  /* == Second List Starts Here == */
+  int size2, skip2;
+  cin >> size2 >> skip2;
+  List LL2;
+  /* == Second List Ends Here == */
+
+  input(LL1, size1, skip1, LL2, size2, skip2);
+
+  cout << getIntersectionNode(LL1.getHead(), LL2.getHead());
+  return 0;
+}
