@@ -46,4 +46,5 @@
 - Adding Two Linked List Numbers
 - Sorting LL elements in Linear Time
 - Deletion of LL Node(s)
-- Finding intersecting Node
+- Finding Intersecting Node
+- Fast and Slow Pointer Algorithm
