@@ -1,0 +1,95 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  public:
+  Node * head;
+  Node * tail;
+  
+  List() {
+    head = nullptr;
+    tail = nullptr;
+  }
+  
+  void insert(int);
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL, int size, int pos) {
+  while(size) {
+    int element;
+    cin >> element;
+    LL.insert(element);
+    size--;
+  }
+  
+  Node * ptr = LL.head;
+  while(pos) {
+    pos--;
+    ptr = ptr -> next;
+  }
+  
+  LL.tail -> next = pos == -1 ? nullptr : ptr;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+Node * findLoopNode(Node * head) {
+  Node * fast = head;
+  Node * slow = head;
+  
+  while (fast != nullptr && fast -> next != nullptr) {
+    fast = fast -> next -> next;
+    slow = slow -> next;
+    
+    if (slow == fast) return slow;
+  }
+  
+  return nullptr;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+int listLoopLength(Node * head) {
+  Node * ptr = findLoopNode(head);
+  if (ptr == nullptr) return 0;
+  
+  Node * tempPtr = ptr -> next;
+  int length = 1;
+  
+  while(tempPtr != ptr) {
+    length++;
+    tempPtr = tempPtr -> next;
+  }
+  
+  return length;
+}
+
+int main() {
+  int size, pos;
+  cin >> size >> pos;
+  List LL;
+  input(LL, size, pos);
+  cout << listLoopLength(LL.head);
+  return 0;
+}
