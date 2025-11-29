@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  public: Node * head;
+  Node * tail;
+
+  List() {
+    head = nullptr;
+    tail = nullptr;
+  }
+
+  void insert(int);
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL, int size) {
+  while (size) {
+    int element;
+    cin >> element;
+    LL.insert(element);
+    size--;
+  }
+}
+
+void print(Node * head) {
+  Node * ptr = head;
+  while (ptr != nullptr) {
+    cout << ptr -> data << " ";
+    ptr = ptr -> next;
+  }
+  cout << endl;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+Node * deleteMiddleNode(Node * head) {
+  if (head == nullptr || head -> next == nullptr) return nullptr;
+
+  Node * fast = head;
+  Node * slow = head;
+  Node * prev = nullptr;
+
+  while (fast != nullptr && fast -> next != nullptr) {
+    prev = slow;
+    slow = slow -> next;
+    fast = fast -> next -> next;
+  }
+
+  prev -> next = slow -> next;
+  slow -> next = nullptr;
+  delete slow;
+
+  return head;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  List LL;
+  input(LL, size);
+
+  cout << "Before Deletion: ";
+  print(LL.head);
+
+  cout << "After Deletion: ";
+  Node * head = deleteMiddleNode(LL.head);
+  if (head == nullptr) {
+    cout << "---";
+    exit(0);
+  }
+  print(head);
+
+  return 0;
+}
