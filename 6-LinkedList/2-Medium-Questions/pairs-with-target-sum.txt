@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * prev;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    prev = nullptr;
+    next = nullptr;
+  }
+};
+
+class DLL {
+  public: Node * head;
+  Node * tail;
+
+  DLL() {
+    head = nullptr;
+    tail = nullptr;
+  }
+
+  void insert(int);
+};
+
+void DLL::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+
+  tail -> next = ptr;
+  ptr -> prev = tail;
+  tail = ptr;
+}
+
+void input(DLL & list, int size) {
+  while (size) {
+    int element;
+    cin >> element;
+    list.insert(element);
+    size--;
+  }
+}
+
+// Time Complexity is O(N^2) and Space Complexity is O(N)
+vector < vector < int >> findPairsWithGivenSum(Node * head, int target) {
+  vector<vector<int>> matrix;
+  
+  Node * ptr1 = head;
+  while (ptr1 != nullptr && ptr1 -> next != nullptr) {
+    Node * ptr2 = ptr1 -> next;
+    while (ptr2 != nullptr) {
+      int value1 = ptr1 -> data;
+      int value2 = ptr2 -> data;
+      if (value1 + value2 == target) {
+        matrix.push_back({min(value1, value2), max(value1, value2)});
+        ptr1 -> data = INT_MAX;
+        ptr2 -> data = INT_MAX;
+        break;
+      } else ptr2 = ptr2 -> next;
+    }
+    ptr1 = ptr1 -> next;
+  }
+  
+  return matrix;
+}
+
+void printMatrix(vector<vector<int>>& matrix) {
+  int rows = matrix.size();
+  int cols = matrix[0].size();
+  
+  for (int row = 0; row < rows; row++) {
+    for (int col = 0; col < cols; col++) cout << matrix[row][col] << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int size, target;
+  cin >> size >> target;
+  DLL list;
+  input(list, size);
+
+  vector<vector<int>> matrix = findPairsWithGivenSum(list.head, target);
+  printMatrix(matrix);
+  return 0;
+}
