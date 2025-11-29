@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  public: Node * head;
+  Node * tail;
+
+  List() {
+    head = nullptr;
+    tail = nullptr;
+  }
+
+  void insert(int);
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL, int size) {
+  while (size) {
+    int element;
+    cin >> element;
+    LL.insert(element);
+    size--;
+  }
+}
+
+void print(Node * head) {
+  Node * ptr = head;
+  while (ptr != nullptr) {
+    cout << ptr -> data << " ";
+    ptr = ptr -> next;
+  }
+  cout << endl;
+}
+
+// Time Complexity is O(1) and Space Complexity is O(1).
+void deleteNodeWithoutHead(Node * node) {
+  // I'll first copy the value of next node in current node.
+  // I'll delete the next node instead of the given node.
+
+  Node * nextNode = node -> next;
+  node -> data = nextNode -> data;
+  node -> next = nextNode -> next;
+  nextNode -> next = nullptr;
+  delete nextNode;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  List LL;
+  input(LL, size);
+
+  cout << "Before Node Deletion: ";
+  print(LL.head);
+
+  cout << "After Node Deletion: ";
+  deleteNodeWithoutHead(LL.head -> next -> next);
+  print(LL.head);
+  return 0;
+}
