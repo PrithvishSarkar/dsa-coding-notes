@@ -1,0 +1,105 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * prev;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    prev = nullptr;
+    next = nullptr;
+  }
+};
+
+class DLL {
+  public: Node * head;
+  Node * tail;
+
+  DLL() {
+    head = nullptr;
+    tail = nullptr;
+  }
+
+  void insert(int);
+};
+
+void DLL::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+
+  tail -> next = ptr;
+  ptr -> prev = tail;
+  tail = ptr;
+}
+
+void input(DLL & list, int size) {
+  while (size) {
+    int element;
+    cin >> element;
+    list.insert(element);
+    size--;
+  }
+}
+
+void print(Node * head) {
+  Node * ptr = head;
+  while (ptr != nullptr) {
+    cout << ptr -> data << " ";
+    ptr = ptr -> next;
+  }
+  cout << endl;
+}
+
+// Time Complexity is O(1) and Space Complexity is O(1).
+void deleteNode(Node * currectNode) {
+  Node * prevNode = currectNode -> prev;
+  Node * nextNode = currectNode -> next;
+
+  if (nextNode == nullptr) {
+    prevNode -> next = nextNode;
+    currectNode -> prev = nullptr;
+    delete currectNode;
+    return;
+  }
+
+  prevNode -> next = nextNode;
+  nextNode -> prev = prevNode;
+  currectNode -> prev = nullptr;
+  currectNode -> next = nullptr;
+  delete currectNode;
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+Node * removeDuplicates(Node * head) {
+  Node * ptr = head;
+  while (ptr -> next != nullptr) {
+    if (ptr -> data == ptr -> next -> data) {
+      deleteNode(ptr -> next);
+      if (ptr -> data == ptr -> next -> data) continue;
+    }
+    ptr = ptr -> next;
+  }
+  return head;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  DLL list;
+  input(list, size);
+
+  cout << "Before Duplicate Removal: ";
+  print(list.head);
+
+  cout << "After Duplicate Removal: ";
+  Node * head = removeDuplicates(list.head);
+  print(head);
+  return 0;
+}
