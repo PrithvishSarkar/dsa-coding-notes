@@ -13,19 +13,15 @@ class Node {
 };
 
 class List {
-  Node * head;
+  public: Node * head;
   Node * tail;
 
-  public:
-    List() {
-      head = nullptr;
-      tail = nullptr;
-    }
+  List() {
+    head = nullptr;
+    tail = nullptr;
+  }
 
   void insert(int);
-  Node * getHead() {
-    return head;
-  };
 };
 
 void List::insert(int data) {
@@ -35,6 +31,7 @@ void List::insert(int data) {
     tail = ptr;
     return;
   }
+
   tail -> next = ptr;
   tail = ptr;
 }
@@ -48,26 +45,16 @@ void input(List & LL, int size) {
   }
 }
 
-int findLength(Node * head) {
-  int count = 0;
-  Node * temp = head;
-  while (temp != nullptr) {
-    count++;
-    temp = temp -> next;
-  }
-  return count;
-}
+Node * findMiddleNode(Node * head) {
+  Node * fast = head;
+  Node * slow = head;
 
-// Time Complexity is O(N) and Space Complexity is O(1).
-Node * middleNode(Node * head) {
-  int length = findLength(head);
-  int iterations = length / 2;
-  Node * temp = head;
-  while (iterations) {
-    temp = temp -> next;
-    iterations--;
+  while (fast != nullptr && fast -> next != nullptr) {
+    fast = fast -> next -> next;
+    slow = slow -> next;
   }
-  return temp;
+
+  return slow;
 }
 
 int main() {
@@ -75,8 +62,8 @@ int main() {
   cin >> size;
   List LL;
   input(LL, size);
-  
-  Node * ptr = middleNode(LL.getHead());
+
+  Node * ptr = findMiddleNode(LL.head);
   cout << ptr -> data;
   return 0;
 }
