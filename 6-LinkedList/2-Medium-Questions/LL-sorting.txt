@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: int data;
+  Node * next;
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class List {
+  public: Node * head;
+  Node * tail;
+
+  List() {
+    head = nullptr;
+    tail = nullptr;
+  }
+
+  void insert(int);
+};
+
+void List::insert(int data) {
+  Node * ptr = new Node(data);
+  if (head == nullptr && tail == nullptr) {
+    head = ptr;
+    tail = ptr;
+    return;
+  }
+  tail -> next = ptr;
+  tail = ptr;
+}
+
+void input(List & LL, int size) {
+  while (size) {
+    int element;
+    cin >> element;
+    LL.insert(element);
+    size--;
+  }
+}
+
+void print(Node * head) {
+  Node * ptr = head;
+  while (ptr != nullptr) {
+    cout << ptr -> data << " ";
+    ptr = ptr -> next;
+  }
+  cout << endl;
+}
+
+// Time Complexity is O(N * logN) and Space Complexity is O(N).
+Node * sortList(Node * head) {
+  vector < int > temp;
+  Node * ptr = head;
+  while (ptr != nullptr) {
+    temp.push_back(ptr -> data);
+    ptr = ptr -> next;
+  }
+  sort(temp.begin(), temp.end());
+  ptr = head;
+  int index = 0;
+  while (ptr != nullptr) {
+    ptr -> data = temp[index++];
+    ptr = ptr -> next;
+  }
+  return head;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  List LL;
+  input(LL, size);
+
+  cout << "Before Sorting: ";
+  print(LL.head);
+
+  cout << "After Sorting: ";
+  Node * head = sortList(LL.head);
+  print(head);
+  return 0;
+}

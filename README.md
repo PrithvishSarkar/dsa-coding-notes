@@ -48,3 +48,6 @@
 - Deletion of LL Node(s)
 - Finding Intersecting Node
 - Fast and Slow Pointer Algorithm
+- Sorting Singly Linked List
+
+## Step-7: Recursion (Pattern-Wise)
