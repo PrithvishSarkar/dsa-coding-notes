@@ -50,4 +50,4 @@
 - Fast and Slow Pointer Algorithm
 - Sorting Singly Linked List
 
-## Step-7: Recursion (Pattern-Wise)
+## Step-8: Bit Manipulation (Concepts/Problems)

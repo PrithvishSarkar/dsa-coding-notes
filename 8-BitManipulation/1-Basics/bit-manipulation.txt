@@ -1,0 +1,113 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Finding if i-th bit is set bit - O(1)
+bool isSetBit(int n, int i) {
+  // Right shift the number by 'i' positions and AND with 1.
+  int result = (n >> i) & 1;
+  return (result == 1);
+}
+
+// Checking if the number is Odd or not - O(1)
+bool isOdd(int num) {
+  int result = num & 1;
+  return (!result == 0);
+}
+
+// Checking if the number is a power of two or not - O(logN)
+bool isPowerOfTwo(int num) {
+  if (num <= 0) return false;
+
+  int countOnes = 0;
+  while (num) {
+    int k = num;
+    int bit = k & 1;
+    if (bit == 1) countOnes++;
+    num = num >> 1;
+  }
+
+  return (countOnes == 1);
+}
+
+// Counting all the set bits of the number - O(logN)
+int countSetBits(int num) {
+  int count = 0;
+  while (num) {
+    int k = num;
+    int bit = k & 1;
+    if (bit == 1) count++;
+    num = num >> 1;
+  }
+  return count;
+}
+
+// Setting the Rightmost digit to 1 - O(1)
+int setRightmostBit(int num) {
+  int k = num;
+  int bit = k & 1;
+  if (bit == 1) return num;
+  return (num + 1);
+}
+
+// Swapping two numbers without third variable - O(1)
+void swapNumbers(int & a, int & b) {
+  a = a ^ b;
+  b = a ^ b;
+  a = a ^ b;
+}
+
+// Dividing two numbers in integer range - O(1)
+int divide(int dividend, int divisor) {
+  if (dividend == INT_MIN && divisor == -1) return INT_MAX;
+  if (dividend == INT_MAX && divisor == -1) return (INT_MIN + 1);
+
+  int result = dividend / divisor;
+  return result;
+}
+
+int main() {
+  /* Set Bit - Start */
+  int setBitNumber, setBitIndex;
+  cin >> setBitNumber >> setBitIndex;
+  cout << isSetBit(setBitNumber, setBitIndex);
+  /* Set Bit - End */
+
+  /* Number Type - Start */
+  int number;
+  cin >> number;
+  cout << isOdd(number);
+  /* Number Type - End */
+
+  /* Power Of Two - Start */
+  int powerOfTwoNumber;
+  cin >> powerOfTwoNumber;
+  cout << isPowerOfTwo(powerOfTwoNumber);
+  /* Power Of Two - End */
+
+  /* Count Set Bit(s) - Start */
+  int setBitCountNumber;
+  cin >> setBitCountNumber;
+  cout << countSetBits(setBitCountNumber);
+  /* Count Set Bit(s) - End */
+
+  /* Setting Rightmost Bit - Start */
+  int unsetBit;
+  cin >> unsetBit;
+  cout << setRightmostBit(unsetBit);
+  /* Setting Rightmost Bit - End */
+
+  /* Swap Numbers In-Place - Start */
+  int num1, num2;
+  cin >> num1 >> num2;
+  swapNumbers(num1, num2);
+  cout << num1 << " " << num2 << endl;
+  /* Swap Numbers In-Place - End */
+
+  /* Divide Two Integers With Edge Cases - Start */
+  int int1, int2;
+  cin >> int1 >> int2;
+  cout << divide(int1, int2);
+  /* Divide Two Integers With Edge Cases - End */
+  return 0;
+}
