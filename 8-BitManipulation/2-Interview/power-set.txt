@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int idx = 0; idx < size; idx++) {
+    int element;
+    cin >> element;
+    nums[idx] = element;
+  }
+}
+
+/*
+Time Complexity is O(N * 2^N) and Space Complexity is O(K * 2^N) 
+where 0 <= K <= 2^N
+*/
+vector < vector < int >> subsets(vector < int > & nums) {
+  vector < vector < int >> result;
+
+  int vectorLength = nums.size();
+  int numberOfSubsets = 1 << vectorLength; // 2^N subsets
+  for (int i = 0; i < numberOfSubsets; i++) {
+    vector < int > temp;
+    for (int j = 0; j < vectorLength; j++) {
+      if (i & (1 << j)) temp.push_back(nums[j]);
+    }
+    result.push_back(temp);
+  }
+
+  return result;
+}
+
+void output(vector < vector < int >> & matrix) {
+  for (auto set: matrix) {
+    for (auto element: set) cout << element << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  vector < vector < int >> result = subsets(nums);
+  output(result);
+  return 0;
+}

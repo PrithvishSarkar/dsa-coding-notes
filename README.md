@@ -54,3 +54,5 @@
 
 - AND | OR | NOT | XOR Operators
 - Finding Range XOR using Loop
+- Finding Unique Element(s)
+- Listing Power Set of a Vector
