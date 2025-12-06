@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int index = 0; index < size; index++) {
+    int element;
+    cin >> element;
+    nums[index] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+int singleNumber(vector < int > & nums) {
+  int num = 0;
+  for (auto element: nums) num ^= element;
+  return num;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  cout << singleNumber(nums);
+  return 0;
+}
