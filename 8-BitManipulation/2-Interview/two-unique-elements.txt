@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void input(vector < int > & nums, int size) {
+  for (int idx = 0; idx < size; idx++) {
+    int element;
+    cin >> element;
+    nums[idx] = element;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+vector < int > singleNumbers(vector < int > & nums) {
+  int xorValue = 0;
+  for (auto element: nums) xorValue ^= element;
+  int litmusValue = (xorValue & (xorValue - 1)) ^ xorValue;
+
+  int bucket1 = 0, bucket2 = 0;
+  for (auto element: nums) {
+    if (element & litmusValue) bucket1 ^= element;
+    else bucket2 ^= element;
+  }
+  return {
+    min(bucket1, bucket2),
+    max(bucket1, bucket2)
+  };
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums(size, 0);
+  input(nums, size);
+  vector < int > result = singleNumbers(nums);
+  cout << result[0] << " " << result[1] << endl;
+  return 0;
+}

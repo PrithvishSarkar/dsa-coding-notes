@@ -53,3 +53,4 @@
 ## Step-8: Bit Manipulation (Concepts/Problems)
 
 - AND | OR | NOT | XOR Operators
+- Finding Range XOR using Loop
