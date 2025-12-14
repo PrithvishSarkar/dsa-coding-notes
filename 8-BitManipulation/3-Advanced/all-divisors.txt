@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(sqrt(N)) and Space Complexity is O(K).
+vector < int > divisors(int n) {
+  vector < int > result;
+
+  int iterationCount = sqrt(n);
+  for (int itr = 1; itr <= iterationCount; itr++) {
+    if (n % itr == 0) {
+      result.push_back(itr);
+      int m = n / itr;
+      if (m != itr) result.push_back(m);
+    }
+  }
+  return result;
+}
+
+void print(vector < int > nums) {
+  for (auto element: nums) cout << element << " ";
+  cout << endl;
+}
+
+int main() {
+  int num;
+  cin >> num;
+  print(divisors(num));
+  return 0;
+}
