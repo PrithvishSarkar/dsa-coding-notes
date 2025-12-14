@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(N*log(logN)) and Space Complexity is O(N).
+vector < bool > primes(int n) {
+
+  // Sieve of Eratosthenes
+
+  vector < bool > nums(n, true);
+  nums[0] = 0;
+  nums[1] = 0;
+  for (int i = 2; i * i < n; i++) {
+    if (nums[i]) {
+      for (int j = i * i; j < n; j += i) nums[j] = false;
+    }
+  }
+
+  return nums;
+}
+
+void print(vector < bool > nums) {
+  int n = nums.size();
+  for (int idx = 2; idx < n; idx++) {
+    if (nums[idx]) cout << idx << " ";
+  }
+  cout << endl;
+}
+
+int main() {
+  int num;
+  cin >> num;
+  print(primes(num));
+  return 0;
+}
