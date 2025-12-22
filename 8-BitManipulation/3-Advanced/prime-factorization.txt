@@ -1,0 +1,101 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define MAX_N 100000
+
+vector < int > SPF(MAX_N + 1, 1);
+
+/* Function to precompute smallest prime factor using sieve of eratosthenes */
+void sieve() {
+  for (int i = 0; i <= MAX_N; i++) SPF[i] = i;
+
+  // Iterate on all the number
+  for (int i = 2; i * i <= MAX_N; i++) {
+
+    // If the number is a prime number 
+    if (SPF[i] == i) {
+
+      /* Mark all its multiples who have not received their smallest prime factor yet*/
+      for (int j = i * i; j <= MAX_N; j += i) {
+
+        // If smallest prime factor not received yet
+        if (SPF[j] == j) {
+
+          /* Store i as the smallest prime factor for its multiple */
+          SPF[j] = i;
+        }
+      }
+    }
+  }
+
+  // Return
+  return;
+}
+
+/* Helper function to find the prime factorization of a number */
+vector < int > primeFact(int n) {
+
+  // To store the result
+  vector < int > ans;
+
+  // Until the number is not reduced to 1
+  while (n != 1) {
+
+    // Add the smallest prime factor to the list
+    ans.push_back(SPF[n]);
+
+    // Update the number
+    n = n / SPF[n];
+  }
+
+  // Return the result
+  return ans;
+}
+
+/* Function to get the prime factorization of all the number */
+vector < vector < int >> primeFactors(vector < int > & queries) {
+
+  /* Pre compute the smallest possible factor for all numbers */
+  sieve();
+
+  // To store the answer
+  vector < vector < int >> ans;
+
+  // Iterate on each number in query
+  for (int i = 0; i < queries.size(); i++) {
+    /* Function call to get the prime factorization of current number */
+    ans.push_back(primeFact(queries[i]));
+  }
+
+  // Return the answer
+  return ans;
+}
+
+void input(vector < int > & nums, int n) {
+  for (int idx = 0; idx < n; idx++) {
+    int element;
+    cin >> element;
+    nums[idx] = element;
+  }
+}
+
+void print(vector < vector < int >> & matrix) {
+  for (auto vec: matrix) {
+    for (auto element: vec) cout << element << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > queries(size, 0);
+  input(queries, size);
+
+  vector < vector < int >> ans = primeFactors(queries);
+
+  print(ans);
+
+  return 0;
+}
