@@ -59,3 +59,4 @@
 - All Divisors of a Number
 - Count Primes using Sieve
 - Finding `pow(x, n)` recursively
+- Finding Prime Factors

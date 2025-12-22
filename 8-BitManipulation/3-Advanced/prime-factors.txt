@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is approx O(sqrt(N) * logN) and Space Complexity is undefined.
+vector < int > primeFactors(int num) {
+  vector < int > primes;
+  for (int i = 2; i <= sqrt(num); i++) {
+    if (num % i == 0) {
+      primes.push_back(i);
+      while (num % i == 0) num /= i;
+    }
+  }
+  if (num != 1) primes.push_back(num);
+  return primes;
+}
+
+void print(vector < int > & nums) {
+  for (auto element: nums) cout << element << " ";
+  cout << endl;
+}
+
+int main() {
+  int num;
+  cin >> num;
+  vector < int > primes = primeFactors(num);
+  print(primes);
+  return 0;
+}
