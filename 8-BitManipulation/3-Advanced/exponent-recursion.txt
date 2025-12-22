@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+double power(double base, int exponent) {
+  if (exponent == 0 || base == 1) return 1;
+  if (exponent == 1) return base;
+
+  if (exponent < 0) {
+    if (exponent == INT_MIN) return (1 / base) * power(1 / base, INT_MAX);
+    return power(1 / base, -1 * exponent);
+  }
+
+  bool isExponentEven = exponent % 2 == 0 ? true : false;
+
+  if (isExponentEven) return power(base * base, exponent / 2);
+  return power(base, 1) * power(base * base, exponent / 2);
+}
+
+int main() {
+  int base, exponent;
+  cin >> base >> exponent;
+  cout << power(base, exponent);
+  return 0;
+}
