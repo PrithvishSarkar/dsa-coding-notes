@@ -1,0 +1,97 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Stack {
+  private: int * arr = nullptr;
+  int top = -1,
+  capacity = 0;
+
+  public:
+  // Constructor
+  Stack(int size) {
+    if (size < 1) {
+      cout << "Invalid Size" << endl;
+      return;
+    }
+    capacity = size;
+    arr = new int[capacity];
+  }
+
+  // Destructor to Free Memory
+  ~Stack() {
+    delete[] arr;
+  }
+
+  // Function Declaration
+  void push(int);
+  int pop();
+  int peek();
+  bool isEmpty();
+  bool isFull();
+};
+
+/* ===== STACK FUNCTION DEFINITION START ===== */
+
+// Stack Push Function
+void Stack::push(int num) {
+  if (isFull()) {
+    cout << "Stack Overflow!" << endl;
+    return;
+  }
+  arr[++top] = num;
+  cout << "Stack Pushed!" << endl;
+}
+
+// Stack Pop Function
+int Stack::pop() {
+  if (isEmpty()) {
+    cout << "Stack Underflow!" << endl;
+    return -1;
+  }
+  return arr[top--];
+}
+
+// Stack Peek Function
+int Stack::peek() {
+  if (isEmpty()) {
+    cout << "No Top Available" << endl;
+    return -1;
+  }
+  return arr[top];
+}
+
+bool Stack::isEmpty() {
+  return top == -1;
+}
+
+bool Stack::isFull() {
+  return top == capacity - 1;
+}
+
+/* ===== STACK FUNCTION DEFINITION END ===== */
+
+// Main Function
+int main() {
+  int size;
+  cin >> size;
+  Stack s(size);
+
+  // Populating Stack Elements
+  for (int item = 0; item < size; item++) {
+    int element;
+    cin >> element;
+    s.push(element);
+  }
+
+  // Top Element
+  cout << "Top Element is " << s.peek() << endl;
+
+  // Removing Element
+  for (int item = 0; item < size; item++) {
+    cout << "Popped Element is " << s.pop() << endl;
+  }
+
+  // Checking Emptiness or Fullness
+  cout << "Empty? " << s.isEmpty() << "\tFull? " << s.isFull() << endl;
+}
