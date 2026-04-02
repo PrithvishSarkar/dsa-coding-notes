@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: 
+  int data;
+  Node * next;
+
+  // Default Constructor
+  Node() {
+    data = 0;
+    next = nullptr;
+  }
+
+  // Parameterized Constructor
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class Stack {
+  private: 
+  Node * top = nullptr;
+  int size = 0;
+
+  public: 
+  void push(int);
+  int pop();
+  int peek();
+  bool isEmpty() {
+    return size == 0;
+  }
+};
+
+/* ===== STACK FUNCTION DEFINITION START ===== */
+
+void Stack::push(int num) {
+  Node * ptr = new Node(num);
+  ptr -> next = top;
+  top = ptr;
+  size++;
+  cout << "Element Pushed Successfully!" << endl;
+}
+
+int Stack::pop() {
+  if (size == 0) {
+    cout << "Stack Underflow!" << endl;
+    exit(1);
+  }
+
+  int element = top -> data;
+
+  Node * temp = top;
+  top = top -> next;
+  temp -> next = nullptr;
+  delete temp;
+
+  size--;
+
+  return element;
+}
+
+int Stack::peek() {
+  if (size == 0) {
+    cout << "Stack Underflow!" << endl;
+    exit(1);
+  }
+  return top -> data;
+}
+
+/* ===== STACK FUNCTION DEFINITION END ===== */
+
+int main() {
+  int size;
+  cin >> size;
+
+  Stack stk;
+
+  // Populating Stack
+  for (int item = 0; item < size; item++) {
+    int element;
+    cin >> element;
+    stk.push(element);
+  }
+
+  // Viewing Top Element
+  cout << "Top Element: " << stk.peek() << endl;
+
+  // Poping Elements
+  cout << "Popped Element: " << stk.pop() << "\tPopped Element: " << stk.pop() << endl;
+
+  // Viewing Top Element
+  cout << "Top Element: " << stk.peek() << endl;
+
+  // Checking Emptiness Status
+  cout << "Empty? " << stk.isEmpty() << endl;
+
+  return 0;
+}
