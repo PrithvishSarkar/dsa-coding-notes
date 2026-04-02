@@ -3,7 +3,8 @@
 using namespace std;
 
 class Stack {
-  private: int * arr = nullptr;
+  private: 
+  int * arr = nullptr;
   int top = -1,
   capacity = 0;
 

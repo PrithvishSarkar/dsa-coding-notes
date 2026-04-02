@@ -61,3 +61,9 @@
 - Finding `pow(x, n)` recursively
 - Optimally Finding Prime Factors
 - Prime Factorization using Seive
+
+## Step-9: Stack and Queues (Prefix/Postfix/Infix)
+
+- Implementing Stack using user-defined fixed-sized Array
+- Implementing Queue using user-defined fixed-sized Array
+- Implementing Stack using Queue

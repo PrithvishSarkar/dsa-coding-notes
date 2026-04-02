@@ -1,0 +1,124 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Queue {
+  private: 
+  int * arr = nullptr;
+  int start = -1,
+  end = -1,
+  currentSize = 0,
+  maxSize = 0;
+  
+  public: 
+  Queue(int size) {
+    if (size < 1) {
+      cout << "Invalid Size!" << endl;
+      exit(1);
+    }
+    maxSize = size;
+    arr = new int[maxSize];
+  }
+  ~Queue() {
+    delete[] arr;
+  }
+  
+  void push(int);
+  int pop();
+  int getFront();
+  int getRear();
+  bool isEmpty();
+  bool isFull();
+  int size() {
+    return currentSize;
+  }
+};
+
+/* ===== QUEUE FUNCTIONS DEFINITION START ===== */
+
+// Checking if Queue is empty
+bool Queue::isEmpty() {
+  return currentSize == 0;
+}
+
+// Checking if Queue reaches its capacity
+bool Queue::isFull() {
+  return currentSize == maxSize;
+}
+
+// Adding Queue Element
+void Queue::push(int num) {
+  if (isFull()) {
+    cout << "Queue Overflow!" << endl;
+    exit(1);
+  }
+
+  if (start == -1) start++;
+
+  arr[++end] = num;
+  currentSize++;
+  cout << "Element Pushed!" << endl;
+}
+
+// Removing Queue Element
+int Queue::pop() {
+  if (isEmpty()) {
+    cout << "Queue Underflow!" << endl;
+    exit(1);
+  }
+
+  int element = arr[start];
+
+  if (currentSize == 1) {
+    start = -1;
+    end = -1;
+  } else start++;
+
+  currentSize--;
+
+  return element;
+}
+
+// Viewing Front Element
+int Queue::getFront() {
+  if (isEmpty()) {
+    cout << "Queue Underflow!" << endl;
+    exit(1);
+  }
+  return arr[start];
+}
+
+// Viewing End Element
+int Queue::getRear() {
+  if (isEmpty()) {
+    cout << "Queue Underflow!" << endl;
+    exit(1);
+  }
+  return arr[end];
+}
+
+/* ===== QUEUE FUNCTIONS DEFINITION END ===== */
+
+int main() {
+  int size;
+  cin >> size;
+  Queue q(size);
+
+  // Populating Queue
+  for (int item = 0; item < size; item++) {
+    int element;
+    cin >> element;
+    q.push(element);
+  }
+
+  // Front and Back Elements
+  cout << "Front: " << q.getFront() << "\tBack: " << q.getRear() << endl;
+
+  // Poping Elements
+  for (int item = 0; item < size; item++) {
+    cout << "Popped Element: " << q.pop() << endl;
+  }
+
+  // Checking Empty or Full
+  cout << "Empty? " << q.isEmpty() << "\tFull?" << q.isFull() << endl;
+}
