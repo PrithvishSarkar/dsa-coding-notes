@@ -64,6 +64,5 @@
 
 ## Step-9: Stack and Queues (Prefix/Postfix/Infix)
 
-- Implementing Stack using user-defined fixed-sized Array
-- Implementing Queue using user-defined fixed-sized Array
-- Implementing Stack using Queue
+- Implement Stack and Queue using Array (size fixed)
+- Implement Stack and Queue using Singly Linked List

@@ -1,0 +1,125 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+  public: 
+  int data;
+  Node * next;
+
+  Node() {
+    data = 0;
+    next = nullptr;
+  }
+
+  Node(int data) {
+    this -> data = data;
+    next = nullptr;
+  }
+};
+
+class Queue {
+  private: 
+  int currentSize = 0;
+  Node * start = nullptr;
+  Node * end = nullptr;
+
+  public: 
+  void push(int);
+  int pop();
+  int peekFront();
+  int peekRear();
+  bool isEmpty() {
+    return currentSize == 0;
+  }
+  int size() {
+    return currentSize;
+  }
+};
+
+/* ===== QUEUE FUNCTION DEFINITION START ===== */
+
+// Adding Element in Queue
+void Queue::push(int num) {
+  Node * ptr = new Node(num);
+  if (start == nullptr && end == nullptr) {
+    start = ptr;
+    end = ptr;
+  } else {
+    end -> next = ptr;
+    end = ptr;
+  }
+
+  currentSize++;
+  
+  cout << "Element Pushed Successfully!" << endl;
+}
+
+// Removing Element from Queue
+int Queue::pop() {
+  if (currentSize == 0 || (start == nullptr && end == nullptr)) {
+    cout << "Queue Underflow!" << endl;
+    exit(1);
+  }
+
+  int element = start -> data;
+
+  Node * temp = start;
+  start = start -> next;
+  temp -> next = nullptr;
+  delete temp;
+  
+  if (currentSize == 1) end = nullptr;
+
+  currentSize--;
+
+  return element;
+}
+
+// Viewing First Element
+int Queue::peekFront() {
+  if (currentSize == 0 || (start == nullptr && end == nullptr)) {
+    cout << "Queue Underflow!" << endl;
+    exit(1);
+  }
+  return start -> data;
+}
+
+// Viewing Last Element
+int Queue::peekRear() {
+  if (currentSize == 0 || (start == nullptr && end == nullptr)) {
+    cout << "Queue Underflow!" << endl;
+    exit(1);
+  }
+  return end -> data;
+}
+
+/* ===== QUEUE FUNCTION DEFINITION END ===== */
+
+int main() {
+  Queue q;
+  
+  // Populating Queue
+  int capacity;
+  cin >> capacity;
+  for (int item = 0; item < capacity; item++) {
+    int element;
+    cin >> element;
+    q.push(element);
+  }
+  
+  // First and Last Elements
+  cout << "First: " << q.peekFront() << "\tLast: " << q.peekRear() << endl;
+  
+  // Popping some Elements
+  cout << "Popped Element is " << q.pop() << endl;
+  cout << "Popped Element is " << q.pop() << endl;
+  
+  // Asking Queue Size
+  cout << "Size: " << q.size() << endl;
+  
+  // Checking Empty Status
+  cout << "Empty? " << q.isEmpty() << endl;
+  
+  return 0;
+}
