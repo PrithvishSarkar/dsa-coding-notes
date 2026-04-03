@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+// Using In-Built Queue Standard Template Library
+class Stack {
+  queue < int > q;
+
+  public:
+  void push(int);
+  int pop();
+  int top() {
+    return q.front();
+  }
+  bool empty() {
+    return q.empty();
+  }
+};
+
+/* ===== STACK FUNCTION DEFINTION START ===== */
+
+void Stack::push(int num) {
+  /*
+  Idea is to reverse the order of insertion.
+  A Queue (Visualized) when turned 90 degrees clockwise becomes our required Stack (Visualized).
+  */
+
+  int size = q.size();
+  q.push(num);
+
+  // Queue Order Reversal
+  while (size) {
+    q.push(q.front());
+    q.pop();
+    size--;
+  }
+}
+
+int Stack::pop() {
+  int element = q.front();
+  q.pop();
+  return element;
+}
+
+/* ===== STACK FUNCTION DEFINTION END ===== */
+
+int main() {
+  Stack stk;
+
+  // Populating Stack
+  int capacity;
+  cin >> capacity;
+  for (int item = 0; item < capacity; item++) {
+    int element;
+    cin >> element;
+    stk.push(element);
+  }
+
+  // Seeking Top Element
+  cout << "Top Element is " << stk.top() << endl;
+
+  // Popping Stack Elements
+  while (capacity) {
+    cout << "Popped Element is " << stk.pop() << endl;
+    capacity--;
+  }
+
+  // Checking Emptiness Status
+  cout << "Empty? " << stk.empty() << endl;
+
+  return 0;
+}
