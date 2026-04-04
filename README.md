@@ -76,3 +76,10 @@ a Stack rotated 90 degrees counter-clockwise acts as a Queue with inputs reverse
 -->
 
 - Implement Queue using CPP STL Stack
+
+<!-- 
+Queue as Stack means the CPP STL Stack (LIFO) will behave like a Queue (FIFO).
+This is achieved using two stacks: main and helper stacks. The helper stack is just for
+storing main stack elements temporarily in a reversed order. Visually, a stack storing inserted
+elements in a reverse order, if turned 90 degrees counter-clockwise, will behave as a Queue.
+-->
