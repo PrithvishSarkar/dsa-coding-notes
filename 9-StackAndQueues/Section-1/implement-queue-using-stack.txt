@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Using In-Built Stack Standard Templete Library
+class Queue {
+  stack < int > s1; // Main Stack acting as Queue
+  stack < int > s2; // Temporary Helper Stack
+
+  public:
+  void push(int);
+  int pop();
+
+  // Queue Front Element = Stack Top Element
+  int peek() {
+    return s1.top();
+  }
+  bool empty() {
+    return s1.empty();
+  }
+};
+
+/* ===== QUEUE FUNCTION DEFINITIONS START ===== */
+
+/*
+Insertion Operation has 3 steps:
+1. Transfer (Order Reversed): S1 -> S2
+2. Addition: Push to S1
+3. Transfer (Order Reversed): S2 -> S1
+*/
+void Queue::push(int num) {
+  // Directly add element to Main Stack if it's empty
+  if (s1.empty()) {
+    s1.push(num);
+    return;
+  }
+
+  // Transfer elements from S1 -> S2
+  while (!s1.empty()) {
+    s2.push(s1.top());
+    s1.pop();
+  }
+
+  s1.push(num); // Push new element to Main Stack
+
+  // Transfer elements from S2 -> S1
+  while (!s2.empty()) {
+    s1.push(s2.top());
+    s2.pop();
+  }
+}
+
+int Queue::pop() {
+  int element = s1.top();
+  s1.pop();
+  return element;
+}
+
+/* ===== QUEUE FUNCTION DEFINITIONS END ===== */
+
+int main() {
+  Queue q;
+
+  // Populating Queue
+  int capacity;
+  cin >> capacity;
+  for (int item = 0; item < capacity; item++) {
+    int element;
+    cin >> element;
+    q.push(element);
+    cout << "Element Inserted Successfully!" << endl;
+  }
+
+  // Popping Some Elements
+  cout << "First Popped Element is " << q.pop() << endl;
+  cout << "Second Popped Element is " << q.pop() << endl;
+
+  // Peeking Front Element
+  cout << "Front Element is " << q.peek() << endl;
+
+  // Checking Emptiness Status
+  cout << "Empty? " << q.empty() << endl;
+
+  return 0;
+}
