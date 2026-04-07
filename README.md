@@ -67,19 +67,6 @@
 - Implement Stack and Queue using Array (size fixed)
 - Implement Stack and Queue using Singly Linked List
 - Implement Stack using CPP STL Queue
-
-<!-- 
-Stack as Queue means we are using C++ STL Queue which behaves like a Stack.
-Even though Queue is FIFO but will behave as LIFO if the inputs are reversed.
-Visually, a Queue turned 90 degrees clockwise acts as a Stack, or in other sense,
-a Stack rotated 90 degrees counter-clockwise acts as a Queue with inputs reversed.
--->
-
 - Implement Queue using CPP STL Stack
-
-<!-- 
-Queue as Stack means the CPP STL Stack (LIFO) will behave like a Queue (FIFO).
-This is achieved using two stacks: main and helper stacks. The helper stack is just for
-storing main stack elements temporarily in a reversed order. Visually, a stack storing inserted
-elements in a reverse order, if turned 90 degrees counter-clockwise, will behave as a Queue.
--->
+- Infix to Postfix Expression Conversion
+- Infix to Prefix Expression Conversion
