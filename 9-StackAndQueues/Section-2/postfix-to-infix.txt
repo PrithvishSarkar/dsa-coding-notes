@@ -2,6 +2,14 @@
 
 using namespace std;
 
+/*
+Steps to convert Postfix to Infix:
+1. Operands fall to Stack.
+2. Operation Encounter -> Pop two Operands -> Create expression (O2 O O1).
+3. Push human-readable expression in Stack.
+4. Return the top element after loop ends.
+*/
+
 string postfix_to_infix(string str) {
   stack < string > stk;
 

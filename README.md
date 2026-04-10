@@ -68,6 +68,5 @@
 - Implement Stack and Queue using Singly Linked List
 - Implement Stack using CPP STL Queue
 - Implement Queue using CPP STL Stack
-- Infix to Postfix Expression Conversion
-- Infix to Prefix Expression Conversion
-- Postfix to Infix Expression Conversion
+- [Infix to Postfix] and [Postfix to Infix] Conversion
+- [Infix to Prefix] and [Prefix to Infix] Conversion

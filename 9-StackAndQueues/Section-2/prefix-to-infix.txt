@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+string reverse_string(string str) {
+  int i = 0, j = str.length() - 1;
+  while (i < j) swap(str[i++], str[j--]);
+  return str;
+}
+
+/*
+Steps to convert Prefix to Infix:
+1. Reverse the given string.
+2. Operands are pushed to Stack.
+3. Encounter Operation -> Pop two Operands -> Create expression (O1 O O2).
+4. Push created expression to Stack.
+5. Return Stack Top.
+*/
+
+string prefix_to_infix(string str) {
+  str = reverse_string(str);
+  stack < string > stk;
+
+  for (char ch: str) {
+    if (isalnum(ch)) stk.push(string(1, ch));
+    else {
+      if (stk.size() < 2) {
+        return "Invalid Prefix Expression.";
+      }
+      string ch1 = stk.top();
+      stk.pop();
+      string ch2 = stk.top();
+      stk.pop();
+      string temp = '(' + ch1 + ch + ch2 + ')';
+      stk.push(temp);
+    }
+  }
+
+  if (stk.size() != 1) {
+    return "Invalid Prefix Expression.";
+  }
+
+  return stk.top();
+}
+
+int main() {
+  string str;
+  cin >> str;
+
+  cout << prefix_to_infix(str) << endl;
+
+  return 0;
+}
