@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string postfix_to_infix(string str) {
+  stack < string > stk;
+
+  for (char ch: str) {
+    if (isalnum(ch)) {
+      // Push operand as string
+      stk.push(string(1, ch));
+    }
+    else {
+      // Operator case
+      if (stk.size() < 2) {
+        return "Invalid postfix expression";
+      }
+
+      string ch1 = stk.top();
+      stk.pop(); // right operand
+      string ch2 = stk.top();
+      stk.pop(); // left operand
+
+      string temp = "(" + ch2 + ch + ch1 + ")";
+      stk.push(temp);
+    }
+  }
+
+  if (stk.size() != 1) {
+    return "Invalid postfix expression";
+  }
+
+  return stk.top();
+}
+
+int main() {
+  string str;
+  cin >> str;
+  cout << postfix_to_infix(str) << endl;
+  return 0;
+}

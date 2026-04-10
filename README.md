@@ -70,3 +70,4 @@
 - Implement Queue using CPP STL Stack
 - Infix to Postfix Expression Conversion
 - Infix to Prefix Expression Conversion
+- Postfix to Infix Expression Conversion
