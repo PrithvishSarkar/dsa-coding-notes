@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+Steps to convert Postfix to Prefix:
+1. Operand is pushed to Stack.
+2. Operation encounter -> Pop two consecutive tops -> Create expression (O T2 T1).
+3. Push the created operation in Stack top.
+4. After iteration completion, return the Stack top.
+*/
+
+string postfix_to_prefix(string str) {
+  stack < string > stk;
+
+  for (char ch: str) {
+    if (isalnum(ch)) stk.push(string(1, ch));
+    else {
+      if (stk.size() < 2) return "Invalid Postfix Expression.";
+      string top1 = stk.top();
+      stk.pop();
+      string top2 = stk.top();
+      stk.pop();
+      string temp = ch + top2 + top1;
+      stk.push(temp);
+    }
+  }
+
+  if (stk.size() != 1) return "Invalid Postfix Expression.";
+  return stk.top();
+}
+
+int main() {
+  string str;
+  cin >> str;
+  cout << postfix_to_prefix(str) << endl;
+  return 0;
+}
