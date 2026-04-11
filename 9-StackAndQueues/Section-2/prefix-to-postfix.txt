@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string reverse_string(string str) {
+  int i = 0, j = str.length() - 1;
+  while (i < j) swap(str[i++], str[j--]);
+  return str;
+}
+
+/*
+Steps to convert Prefix to Postfix:
+1. Reverse the given string.
+2. Operand is pushed to Stack.
+3. Operation encounter -> Pop two Stack tops -> Create expression (T1 T2 O).
+4. Push created expression to Stack top.
+5. After iterations are done, return Stack top.
+*/
+
+string prefix_to_postfix(string str) {
+  str = reverse_string(str);
+  stack < string > stk;
+
+  for (char ch: str) {
+    if (isalnum(ch)) stk.push(string(1, ch));
+    else {
+      if (stk.size() < 2) return "Invalid Prefix Expression.";
+      string t1 = stk.top();
+      stk.pop();
+      string t2 = stk.top();
+      stk.pop();
+      string temp = t1 + t2 + ch;
+      stk.push(temp);
+    }
+  }
+
+  if (stk.size() != 1) return "Invalid Prefix Expression.";
+
+  return stk.top();
+}
+
+int main() {
+  string str;
+  cin >> str;
+  cout << prefix_to_postfix(str) << endl;
+  return 0;
+}

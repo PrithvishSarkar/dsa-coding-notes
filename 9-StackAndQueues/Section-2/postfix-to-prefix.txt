@@ -27,6 +27,7 @@ string postfix_to_prefix(string str) {
   }
 
   if (stk.size() != 1) return "Invalid Postfix Expression.";
+  
   return stk.top();
 }
 
