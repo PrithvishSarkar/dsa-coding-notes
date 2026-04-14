@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int bracketPriority(char ch) {
+  switch (ch) {
+    case '(':
+    case ')':
+      return 1;
+    case '{':
+    case '}':
+      return 2;
+    case '[':
+    case ']':
+      return 3;
+    default:
+      return -1;
+  }
+}
+
+// Time Complexity is O(N) and Space Complexity is O(N) in Worst Case.
+bool validateParanthesis(string str) {
+  stack < char > stk;
+  for (char ch: str) {
+    switch (ch) {
+      case '(':
+      case '{':
+      case '[':
+        stk.push(ch);
+        continue;
+      default:
+        break;
+    }
+
+    if (stk.empty()) return false;
+    int stackTopPriority = bracketPriority(stk.top());
+    int characterPriority = bracketPriority(ch);
+    if (stackTopPriority != characterPriority) return false;
+    stk.pop();
+  }
+  return stk.empty();
+}
+
+int main() {
+  string brackets;
+  cin >> brackets;
+  cout << validateParanthesis(brackets) << endl;
+  return 0;
+}
