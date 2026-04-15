@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Finding Greater Elements in 'arr' Vector within a Search Space dictated by 'indices' Vector.
+
+vector < int > numberOfGreaterElements(vector < int > & arr, vector < int > & indices) {
+  vector < int > result;
+  int arrLength = arr.size();
+
+  for (int index: indices) {
+    int referenceElement = arr[index], counter = 0;
+    for (int idx = index + 1; idx < arrLength; idx++)
+      if (arr[idx] > referenceElement) counter++;
+    result.push_back(counter);
+  }
+
+  return result;
+}
+
+void input(int size, vector < int > & vec) {
+  int index = 0;
+  while (index < size) {
+    int element;
+    cin >> element;
+    vec[index++] = element;
+  }
+}
+
+int main() {
+  // Primary Array
+  int mainArraySize;
+  cin >> mainArraySize;
+  vector < int > arr(mainArraySize);
+  input(mainArraySize, arr);
+
+  // Secondary Array
+  int indicesArraySize;
+  cin >> indicesArraySize;
+  vector < int > indices(indicesArraySize);
+  input(indicesArraySize, indices);
+
+  // Number of Greater Elements to the Right
+  vector < int > result = numberOfGreaterElements(arr, indices);
+  for (int value: result) cout << value << endl;
+
+  return 0;
+}

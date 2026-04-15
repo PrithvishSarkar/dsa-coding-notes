@@ -72,3 +72,4 @@
 - [Infix to Prefix] and [Prefix to Infix] Conversion
 - [Postfix to Prefix] and [Prefix to Postfix] Conversion
 - Balanced Paranthesis Check (Occurrence Order Preserved)
+- Number of Greater Elements to the Right
