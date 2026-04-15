@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity: O(N) in Best Case and Less Than O(N^2) in Worst Case.
+vector < int > nextSmallerElements(vector < int > & arr) {
+  stack < int > stk;
+  int arrLength = arr.size();
+
+  // Populating Stack 
+  for (int index = arrLength - 1; index >= 0; index--)
+    stk.push(arr[index]);
+
+  vector < int > result;
+
+  int idx = 1, counter = 1;
+  while (counter < arrLength) {
+    if (arr[idx] < stk.top()) {
+      result.push_back(arr[idx]);
+      stk.pop();
+      counter++;
+      idx = counter;
+    }
+    else {
+      idx++;
+      if (idx == arrLength) {
+        result.push_back(-1);
+        stk.pop();
+        counter++;
+        idx = counter;
+      }
+    }
+  }
+  result.push_back(-1);
+
+  return result;
+}
+
+int main() {
+  return 0;
+}

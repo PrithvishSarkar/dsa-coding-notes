@@ -72,4 +72,5 @@
 - [Infix to Prefix] and [Prefix to Infix] Conversion
 - [Postfix to Prefix] and [Prefix to Postfix] Conversion
 - Balanced Paranthesis Check (Occurrence Order Preserved)
-- Number of Greater Elements to the Right
+- Number of Greater Elements to the Right of a given Vector
+- Next Smallest Elements to the Right of a given Vector

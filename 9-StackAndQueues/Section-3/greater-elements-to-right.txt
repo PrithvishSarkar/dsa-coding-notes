@@ -3,7 +3,7 @@
 using namespace std;
 
 // Finding Greater Elements in 'arr' Vector within a Search Space dictated by 'indices' Vector.
-
+// Time Complexity is O(M*N) where 'M' is the size of the Secondary Array and 'N' is the size of the Main Array.
 vector < int > numberOfGreaterElements(vector < int > & arr, vector < int > & indices) {
   vector < int > result;
   int arrLength = arr.size();
