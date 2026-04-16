@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Function to correspondingly map Next Greater Element for each Vector element.
+vector < int > NGE(vector < int > & nums) {
+  stack < int > stk; // Temporary Stack in Conical Shape which helps in mapping
+  vector < int > result(nums.size(), -1); // Mapped NGE Vector
+
+  int index = nums.size() - 1;
+  while (index >= 0) {
+    if (stk.empty()) {
+      result[index] = -1;
+      stk.push(nums[index]);
+      index--;
+    } else {
+      while (!stk.empty() && nums[index] > stk.top()) stk.pop();
+      if (stk.empty()) result[index] = -1;
+      else result[index] = stk.top();
+      stk.push(nums[index]);
+      index--;
+    }
+  }
+  return result;
+}
+
+/*
+1. Returns the Next Greater Element corresponding to Secondary Vector (nums1) using Main Vector (nums2). Where the Secondary Vector is a subset of the Main Vector.
+
+2. Time Complexity is O(N + M) where `N` is the size of Main Vector and `M` is the size of Secondary Vector.
+*/
+vector < int > nextGreaterElement(vector < int > & nums1, vector < int > & nums2) {
+  vector < int > mappedNGE = NGE(nums2); // O(n)
+
+  // Mapping Vector Elements and its corresponding Index for easy searching
+  unordered_map < int, int > mpp;
+  for (int idx = 0; idx < nums2.size(); idx++) mpp[nums2[idx]] = idx; // O(n)
+
+  vector < int > answer;
+
+  // Looping through Secondary Vector -> Searching Element's Index -> Finding corresponding NGE using already mapped Vector
+  for (int value: nums1) {
+    int index = mpp[value];
+    answer.push_back(mappedNGE[index]);
+  } // O(m)
+
+  return answer;
+}
+
+void input(int size, vector < int > & vec) {
+  while (size) {
+    int element;
+    cin >> element;
+    vec.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < int > & vec) {
+  for (int element: vec) cout << element << endl;
+}
+
+int main() {
+  int size1;
+  cin >> size1;
+  vector < int > v1;
+  input(size1, v1);
+
+  int size2;
+  cin >> size2;
+  vector < int > v2;
+  input(size2, v2);
+
+  vector < int > v = nextGreaterElement(v1, v2);
+
+  output(v);
+
+  return 0;
+}
