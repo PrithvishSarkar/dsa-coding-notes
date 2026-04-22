@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+vector < int > stack_to_vector(stack < int > stk) {
+  int size = stk.size();
+  vector < int > result(size, 0);
+  for (int i = (size - 1); i >= 0; i--) {
+    result[i] = stk.top();
+    stk.pop();
+  }
+  return result;
+}
+
+// Destroy those asteroid which are moving in opposite direction and are small
+// Time Complexity is O(N) and Space Complexity is O(N)
+vector < int > asteroidCollision(vector < int > & asteroids) {
+  int size = asteroids.size();
+  stack < int > stk;
+  for (int asteroid: asteroids) {
+    if (asteroid > 0) {
+      stk.push(asteroid);
+      continue;
+    }
+    while (!stk.empty() && stk.top() > 0 && abs(asteroid) > stk.top()) stk.pop();
+    if (!stk.empty() && stk.top() > 0 && abs(asteroid) == stk.top()) stk.pop();
+    if (stk.empty() || (!stk.empty() && stk.top() < 0)) stk.push(asteroid);
+  }
+  vector < int > result = stack_to_vector(stk);
+  return result;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < int > & nums) {
+  for (int number: nums) cout << number << endl;
+}
+
+int main() {
+  int size;
+  cin >> size;
+  vector < int > nums;
+  input(size, nums);
+  vector < int > result = asteroidCollision(nums);
+  output(result);
+  return 0;
+}
