@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+Note-1: If you are not able to decide which is the best flower in garden in one go, then take another round.
+
+Note-2: Since we are using a Circular Vector, so we need to traverse two times. First traversal in reverse direction is to populate the Stack and the second traversal in reverse direction is to populate NGE Vector using Monotonic Stack.
+
+Note-3: Consider hypothetically doubling the given Vector (the second half is a copy of the first half) traversal in reverse direction while introducing NGE Vector for only the first half of the hypothetically doubled Vector.
+
+Note-4: Time Complexity is O(N) and Space Complexity is O(N).
+*/
+
+vector < int > nextGreaterElements(int size, vector < int > & nums) {
+  vector < int > result(size, -1);
+  stack < int > stk; // Temporary Monotonic Cone-Shaped Stack
+
+  // Populating Stack - First Iteration
+  for (int i = (size - 1); i >= 0; i--) {
+    if (stk.empty()) {
+      stk.push(nums[i]);
+      continue;
+    }
+    while (!stk.empty() && stk.top() < nums[i])
+      stk.pop();
+    stk.push(nums[i]);
+  }
+
+  // Populating NGE Vector via Stack - Second Iteration
+  for (int i = (size - 1); i >= 0; i--) {
+    if (stk.empty()) {
+      result[i] = -1;
+      stk.push(nums[i]);
+      continue;
+    }
+    while (!stk.empty() && stk.top() <= nums[i])
+      stk.pop();
+
+    if (stk.empty()) {
+      result[i] = -1;
+      stk.push(nums[i]);
+      continue;
+    }
+    result[i] = stk.top();
+    stk.push(nums[i]);
+  }
+  return result;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < int > & nums) {
+  for (int number: nums) cout << number << endl;
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  vector < int > result = nextGreaterElements(size, nums);
+
+  output(result);
+
+  return 0;
+}
