@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+// Pre-Calculates the number of Next Greater Elements for each Vector element
+vector < int > list_NGE(int size, vector < int > & nums) {
+  vector < int > result(size, 0);
+  stack < int > stk1; // Primary Monotonic Inverted Cone-Shaped Container
+  stack < int > stk2; // Secondary Monotonic Cone-Shaped Container
+
+  // Vector Reverse Direction Traversal
+  for (int i = (size - 1); i >= 0; i--) {
+    int currentElement = nums[i];
+
+    if (stk1.empty()) {
+      stk1.push(currentElement);
+      continue;
+    }
+
+    int counter = 0;
+    while (!stk1.empty() && currentElement < stk1.top()) {
+      stk2.push(stk1.top());
+      stk1.pop();
+      counter++;
+    }
+    result[i] = counter;
+    stk1.push(currentElement);
+    while (!stk2.empty()) {
+      stk1.push(stk2.top());
+      stk2.pop();
+    }
+  }
+
+  return result;
+}
+
+// Finding the number of Greater Elements in 'arr' Vector dictated by 'indices' Vector
+// Time Complexity is O(N^2 + M) where 'M' is the size of the Secondary Array and 'N' is the size of the Primary Array
+// Uses Pre-Calculated values to count and generate NGE Vector
+vector < int > count_NGE(vector < int > & arr, vector < int > & indices) {
+  vector < int > NGE = list_NGE(arr.size(), arr);
+  vector < int > result;
+  for (int index: indices) {
+    result.push_back(NGE[index]);
+  }
+  return result;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < int > & nums) {
+  for (int number: nums) cout << number << endl;
+}
+
+int main() {
+  // Primary Vector
+  int arrSize;
+  cin >> arrSize;
+  vector < int > arr;
+  input(arrSize, arr);
+
+  // Secondary Vector
+  int indicesSize;
+  cin >> indicesSize;
+  vector < int > indices;
+  input(indicesSize, indices);
+
+  // Number of Next Greater Elements
+  vector < int > result = count_NGE(arr, indices);
+
+  // Final Vector
+  output(result);
+
+  return 0;
+}
