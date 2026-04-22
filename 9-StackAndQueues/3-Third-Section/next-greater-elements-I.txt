@@ -29,7 +29,7 @@ vector < int > NGE(vector < int > & nums) {
 
 2. Time Complexity is O(N + M) where `N` is the size of Main Vector and `M` is the size of Secondary Vector.
 */
-vector < int > nextGreaterElement(vector < int > & nums1, vector < int > & nums2) {
+vector < int > nextGreaterElements(vector < int > & nums1, vector < int > & nums2) {
   vector < int > mappedNGE = NGE(nums2); // O(n)
 
   // Mapping Vector Elements and its corresponding Index for easy searching
@@ -71,7 +71,7 @@ int main() {
   vector < int > v2;
   input(size2, v2);
 
-  vector < int > v = nextGreaterElement(v1, v2);
+  vector < int > v = nextGreaterElements(v1, v2);
 
   output(v);
 

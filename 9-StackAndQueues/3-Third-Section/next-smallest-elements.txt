@@ -2,40 +2,64 @@
 
 using namespace std;
 
-// Time Complexity: O(N) in Best Case and Less Than O(N^2) in Worst Case.
-vector < int > nextSmallerElements(vector < int > & arr) {
-  stack < int > stk;
-  int arrLength = arr.size();
+/*
+1. To get the Next Smaller Elements, we must use Inverted Cone-Shaped Stack as a temporary container.
 
-  // Populating Stack 
-  for (int index = arrLength - 1; index >= 0; index--)
-    stk.push(arr[index]);
+2. Time Complexity is O(N) and Space Complexity is O(N).
+*/
+vector < int > nextSmallerElements(int size, vector < int > & nums) {
+  vector < int > result(size, -1);
+  stack < int > stk; // Temporary Inverted Cone-Shaped Monotonic Stack
 
-  vector < int > result;
-
-  int idx = 1, counter = 1;
-  while (counter < arrLength) {
-    if (arr[idx] < stk.top()) {
-      result.push_back(arr[idx]);
-      stk.pop();
-      counter++;
-      idx = counter;
+  // Vector Reverse Traversal and populating NSE Vector
+  for (int index = (size - 1); index >= 0; index--) {
+    int currentElement = nums[index];
+    if (stk.empty()) {
+      result[index] = -1;
+      stk.push(currentElement);
+      continue;
     }
-    else {
-      idx++;
-      if (idx == arrLength) {
-        result.push_back(-1);
-        stk.pop();
-        counter++;
-        idx = counter;
-      }
+
+    // Stack Top indicates Next Smaller Element to the Current Element
+    while (!stk.empty() && stk.top() >= currentElement) stk.pop();
+
+    if (stk.empty()) {
+      stk.push(currentElement);
+      result[index] = -1;
+      continue;
     }
+
+    result[index] = stk.top();
+    stk.push(currentElement);
   }
-  result.push_back(-1);
 
   return result;
 }
 
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < int > & nums) {
+  for (int number: nums) cout << number << endl;
+}
+
 int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  vector < int > result = nextSmallerElements(size, nums);
+
+  output(result);
+
   return 0;
 }
