@@ -50,6 +50,10 @@
 - Fast and Slow Pointer Algorithm
 - Sorting Singly Linked List
 
+## Step-7: Recursion (Pattern-Wise)
+
+- Optimized Power Function using Binary Exponentiation
+
 ## Step-8: Bit Manipulation (Concepts/Problems)
 
 - AND | OR | NOT | XOR Operators

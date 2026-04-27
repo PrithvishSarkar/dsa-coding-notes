@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Binary Exponentiation
+// Logic ---> x^n = (x^2)^(n/2) or (x*(x^2)^(n/2))
+double power(double x, int n) {
+  if (n == 1)
+    return x;
+
+  int divisionValue = n & 1;
+  if (divisionValue == 0)
+    return power(x * x, n >> 1);
+
+  return (x * power(x * x, n >> 1));
+}
+
+// Considering Base Cases & Edge Cases
+// Time Complexity is O(logN) and Space Complexity is O(logN)
+double myPow(double x, int n) {
+  if (x == 0)
+    return 0;
+
+  if (n == 1)
+    return x;
+
+  if (n == 0 || x == 1)
+    return 1;
+
+  if (n == INT_MIN)
+    return (1 / x * power(1 / x, INT_MAX));
+
+  if (n < 0)
+    return power(1 / x, abs(n));
+
+  return power(x, n);
+}
+
+int main() {
+  int base, exponent;
+  cin >> base >> exponent;
+  cout << myPow(base, exponent) << endl;
+  return 0;
+}
