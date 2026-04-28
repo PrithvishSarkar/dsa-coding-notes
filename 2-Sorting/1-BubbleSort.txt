@@ -2,47 +2,45 @@
 
 using namespace std;
 
-void input(vector < int > & nums, int n) {
-  for (int index = 0; index < n; index++) {
+void input(int size, vector < int > & nums) {
+  while (size) {
     int element;
     cin >> element;
-    nums[index] = element;
+    nums.push_back(element);
+    size--;
   }
 }
 
-void print(vector < int > & nums, int n) {
-  for (int index = 0; index < n; index++) cout << nums[index] << " ";
-  cout << endl;
+void output(vector < int > & nums) {
+  for (int element: nums) cout << element << endl;
 }
 
-// Time Complexity is O(N^2) and Space Complexity is O(1);
-void bubbleSort(vector < int > & nums, int n) {
-  for (int i = 0; i < (n - 1); i++) {
-    for (int j = 0; j < (n - i - 1); j++) {
-      if (nums[j] > nums[j + 1]) swap(nums[j], nums[j + 1]);
-    }
-  }
-}
+// Time Complexity is O(N^2) and Space Complexity is O(1).
+void bubbleSort(vector < int > & nums) {
+  static int end = nums.size() - 1;
 
-// Do not uncomment the below commented code unnecessarily.
-/*
-// Bubble Sort using Recursion.
-void bubbleSort(vector < int > & nums, int n) {
-  if (n == 1) return;
-  for (int idx = 0; idx < (n - 1); idx++) {
-    if (nums[idx] > nums[idx + 1]) swap(nums[idx], nums[idx + 1]);
+  if (end == 0) return;
+
+  for (int index = 0; index < end; index++) {
+    if (nums[index] > nums[index + 1]) swap(nums[index], nums[index + 1]);
   }
-  bubbleSort(nums, n - 1);
+  end--;
+  bubbleSort(nums);
 }
-*/
 
 int main() {
   int size;
   cin >> size;
-  vector < int > nums(size, 0);
-  input(nums, size);
-  print(nums, size);
-  bubbleSort(nums, size);
-  print(nums, size);
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << "Before Sorting: " << endl;
+  output(nums);
+
+  bubbleSort(nums);
+
+  cout << "After Sorting: " << endl;
+  output(nums);
   return 0;
 }
