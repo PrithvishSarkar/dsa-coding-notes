@@ -2,61 +2,59 @@
 
 using namespace std;
 
-void input(vector < int > & nums, int n) {
-  for (int index = 0; index < n; index++) {
+void input(int size, vector < int > & nums) {
+  while (size) {
     int element;
     cin >> element;
-    nums[index] = element;
+    nums.push_back(element);
+    size--;
   }
 }
 
-void print(vector < int > & nums, int n) {
-  for (int index = 0; index < n; index++) cout << nums[index] << " ";
-  cout << endl;
+void output(vector < int > & nums) {
+  for (int element: nums) cout << element << endl;
 }
 
-void shiftAndPlace(vector < int > & nums, int i, int j) {
+// Shifts Elements to Right
+void shiftAndPlace(int i, int j, vector < int > & nums) {
   int temp = nums[i];
-  for (int k = (i - 1); k > j; k--) {
-    nums[k + 1] = nums[k];
-  }
+  for (int k = (i - 1); k > j; k--) nums[k + 1] = nums[k];
   nums[j + 1] = temp;
 }
 
-// Time Comlexity is O(N^2) and Space Complexity is O(1).
-void insertionSort(vector < int > & nums, int n) {
-  for (int i = 1; i < n; i++) {
-    int j = (i - 1);
-    while (j >= 0) {
-      if (nums[j] > nums[i]) j--;
-      else break;
-    }
-    shiftAndPlace(nums, i, j);
-  }
-}
+// Time Complexity is O(N^2) and Space Complexity is O(1)
+void insertionSort(vector < int > & nums) {
+  static int start = 1;
 
-// Do not uncomment the below commented code unnecessarily.
-/*
-// Insertion Sort using Recursion.
-void insertionSort(vector < int > & nums, int n, int start) {
-  if (start == n) return;
-  int idx = start - 1;
-  while (idx >= 0) {
-    if (nums[idx] > nums[start]) idx--;
+  if (start == nums.size()) return;
+
+  int index = start - 1;
+  while (index >= 0) {
+    if (nums[index] > nums[start]) index--;
     else break;
   }
-  shiftAndPlace(nums, start, idx);
-  insertionSort(nums, n, start + 1);
+
+  shiftAndPlace(start, index, nums);
+
+  start++;
+
+  insertionSort(nums);
 }
-*/
 
 int main() {
   int size;
   cin >> size;
-  vector < int > nums(size, 0);
-  input(nums, size);
-  print(nums, size);
-  insertionSort(nums, size);
-  print(nums, size);
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << "Before Sorting: " << endl;
+  output(nums);
+
+  insertionSort(nums);
+
+  cout << "After Sorting: " << endl;
+  output(nums);
+
   return 0;
 }
