@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+void input(int size, stack < int > & stk) {
+  while (size) {
+    int element;
+    cin >> element;
+    stk.push(element);
+    size--;
+  }
+}
+
+void output(stack < int > stk) {
+  while (!stk.empty()) {
+    cout << stk.top() << endl;
+    stk.pop();
+  }
+}
+
+// Queue has One Entry Point and One Exit Point and is brilliant for Stack Sorting
+// Time Complexity is O(N) and Space Complexity is O(N)
+void sortStack(stack < int > & stk) {
+  queue < int > q;
+  while (!stk.empty()) {
+    q.push(stk.top());
+    stk.pop();
+  }
+
+  while (!q.empty()) {
+    if (stk.empty()) {
+      stk.push(q.front());
+      q.pop();
+    } else {
+      while (!stk.empty() && q.front() < stk.top()) {
+        q.push(stk.top());
+        stk.pop();
+      }
+      stk.push(q.front());
+      q.pop();
+    }
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  stack < int > stk;
+
+  input(size, stk);
+
+  cout << "Before Sorting: " << endl;
+  output(stk);
+
+  sortStack(stk);
+
+  cout << "After Sorting: " << endl;
+  output(stk);
+
+  return 0;
+}
