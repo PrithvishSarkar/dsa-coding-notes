@@ -2,47 +2,36 @@
 
 using namespace std;
 
-void input(vector < int > & nums, int size) {
-  for (int index = 0; index < size; index++) {
-    int element;
-    cin >> element;
-    nums[index] = element;
+// Time Complexity is O(N) and Space Complexity is O(1)
+int secondLargestElement(vector < int > & nums) {
+  // Searching for the Largest Element
+  int first = * max_element(nums.begin(), nums.end());
+
+  // Searching for the Second Largest Element
+  int second = INT_MIN;
+  for (int element: nums) {
+    if (element == first) continue;
+    if (element > second) second = element;
   }
+  return second == INT_MIN ? -1 : second;
 }
 
-// Time Complexity is O(N) and Space Complexity is O(1).
-int findSecondLargestElement(vector < int > & nums, int n) {
-  int max_element_idx = 0, second_max_element_idx = 0;
-
-  // Finding the largest element.
-  int tempIdx = 0;
-  while (tempIdx < n) {
-    if (nums[tempIdx] > nums[max_element_idx]) max_element_idx = tempIdx;
-    tempIdx++;
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
   }
-
-  // Finding the second largest element.
-  tempIdx = 0;
-  // Reduce the search space if 0th element is largest.
-  if (max_element_idx == 0) second_max_element_idx = 1;
-  while (tempIdx < n) {
-    if (tempIdx == max_element_idx) {
-      tempIdx++;
-      continue;
-    }
-    if (nums[tempIdx] > nums[second_max_element_idx]) {
-      second_max_element_idx = tempIdx;
-    }
-    tempIdx++;
-  }
-  return nums[second_max_element_idx];
 }
 
 int main() {
   int size;
   cin >> size;
-  vector < int > nums(size, 0);
-  input(nums, size);
-  cout << findSecondLargestElement(nums, size);
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << secondLargestElement(nums);
   return 0;
 }
