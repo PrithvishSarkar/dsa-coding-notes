@@ -53,6 +53,8 @@
 ## Step-7: Recursion (Pattern-Wise)
 
 - Optimized Power Function using Binary Exponentiation
+- Sort and Reverse Stack In-Place Recursively
+- Subsequence Patterns and Counting Subsequences
 
 ## Step-8: Bit Manipulation (Concepts/Problems)
 

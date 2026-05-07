@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Solved using Inclusion-Exclusion Principle
+// Time Complexity is O(2^N) and Space Complexity is O(N)
+int subsequences(int idx, int sum, vector < int > & nums, int target) {
+  if (idx == nums.size()) {
+    if (sum == target) return 1;
+    return 0;
+  }
+  
+  // Inclusion - Sum Increased
+  int left = subsequences(idx + 1, sum + nums[idx], nums, target);
+  
+  // Exclusion - Sum Retained
+  int right = subsequences(idx + 1, sum, nums, target);
+
+  return left + right;
+}
+
+int countSubsequenceWithTargetSum(vector < int > & nums, int k) {
+  return subsequences(0, 0, nums, k);
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  int targetSum;
+  cin >> targetSum;
+
+  cout << countSubsequenceWithTargetSum(nums, targetSum);
+
+  return 0;
+}
