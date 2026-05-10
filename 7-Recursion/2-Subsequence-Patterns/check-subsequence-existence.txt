@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Solved using Inclusion and Exclusion Principle of Multiple Recursion
+// Recursion Tree Height is (N + 1) representing Call Stack Occupied Space
+// Time Complexity is O(2^N) and Space Complexity is O(N)
+bool checkSubsequenceSum(int index, int sum, vector < int > & nums, int target) {
+  if (index == nums.size()) {
+    if (sum == target) return true;
+    return false;
+  }
+
+  if (checkSubsequenceSum(index + 1, sum + nums[index], nums, target)) return true;
+
+  if (checkSubsequenceSum(index + 1, sum, nums, target)) return true;
+
+  return false;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  int targetSum;
+  cin >> targetSum;
+
+  cout << checkSubsequenceSum(0, 0, nums, targetSum);
+
+  return 0;
+}
