@@ -11,15 +11,17 @@ void input(vector < int > & nums, int n) {
 }
 
 // Time Complexity is O(N) and Space Complexity is O(1).
-int findMaxConsecutiveOnes(vector < int > & nums, int n) {
-  int temp = 0, count = 0;
-  for (int index = 0; index < n; index++) {
-    if (nums[index] == 1) {
-      temp++;
-      count = max(temp, count);
-    } else temp = 0;
+int findMaxConsecutiveOnes(vector < int > & nums) {
+  int tempCounter = 0, actualCounter = 0;
+  
+  for (int element: nums) {
+    if (element == 1) {
+      tempCounter++;
+      actualCounter = max(actualCounter, tempCounter);
+    } else tempCounter = 0;
   }
-  return count;
+  
+  return actualCounter;
 }
 
 int main() {
@@ -27,6 +29,6 @@ int main() {
   cin >> size;
   vector < int > nums(size, 0);
   input(nums, size);
-  cout << findMaxConsecutiveOnes(nums, size);
+  cout << findMaxConsecutiveOnes(nums);
   return 0;
 }
