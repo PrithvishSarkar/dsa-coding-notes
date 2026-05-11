@@ -16,21 +16,29 @@ void print(vector < int > & nums, int size) {
 }
 
 // Dutch National Flag Algorithm (Simplified Version).
+/*
+Concept: 
+=> 0s are present from `0` index to `low-1` index.
+=> 1s are present from `low` index to `mid-1` index.
+=> 2s are present from `high+1` index to `N-1` index.
+=> Unsorted 0s/1s/2s are present from `mid` index to `high` index.
+=> Initial Array is Unsorted -> it lies between `mid` and `high` indices.
+*/
 // Time Complexity is O(N) and Space Complexity is O(1).
 void sortArray(vector < int > & nums, int n) {
-  int low = 0, high = n - 1, index = 0;
-  while (index <= high) {
-    switch (nums[index]) {
+  int low = 0, mid = 0, high = nums.size() - 1;
+  while (mid <= high) {
+    switch (nums[mid]) {
       case 0:
-        swap(nums[index], nums[low]);
-        index++;
+        swap(nums[low], nums[mid]);
         low++;
+        mid++;
         break;
       case 1:
-        index++;
+        mid++;
         break;
       case 2:
-        swap(nums[index], nums[high]);
+        swap(nums[mid], nums[high]);
         high--;
         break;
       default:
