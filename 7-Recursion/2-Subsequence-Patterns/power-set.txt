@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+=> Curating Power Set is the same as finding all possible Subsequences.
+=> Solved using Inclusion-Exclusion Principle: Two Simultaneous Recursive Calls.
+=> Time Complexity is O(2^N) and Space Complexity (based on Function Call Stack and/or Recursion Tree Depth) is O(N).
+*/
+void subsequences(int index, vector < int > & temp, vector < vector < int >> & result, vector < int > & nums) {
+  if (index == nums.size()) {
+    result.push_back(temp);
+    return;
+  }
+
+  temp.push_back(nums[index]); // Inclusion: Taking Vector Element
+
+  subsequences(index + 1, temp, result, nums);
+
+  temp.pop_back(); // Exclusion: Not Taking Vector Element
+
+  subsequences(index + 1, temp, result, nums);
+}
+
+// Contains all Subsets of a Vector: Vector of a Vector form.
+vector < vector < int > > powerSet(vector < int > & nums) {
+  vector < int > temp;
+  vector < vector < int >> result;
+  subsequences(0, temp, result, nums);
+  return result;
+}
+
+void input(int size, vector<int>& nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector<vector<int>> result) {
+  for (auto value: result) {
+    for (int element: value) cout << element << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+  
+  vector<int> nums;
+  
+  input(size, nums);
+  
+  output(powerSet(nums));
+  
+  return 0;
+}
