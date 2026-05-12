@@ -2,33 +2,57 @@
 
 using namespace std;
 
-void input(vector < int > & nums, int n) {
-  for (int index = 0; index < n; index++) {
-    int element;
-    cin >> element;
-    nums[index] = element;
+/*
+Logic behind Boyer-Moore Voting Algorithm:
+=> Majority Element is the one whose frequency is more than N/2.
+=> Majority Element cancels other elements of the Vector.
+=> After cancellation, only the Majority Element remains standing.
+*/
+
+// Time Complexity is O(N) and Space Complexity is O(1).
+int majorityElement(vector < int > & nums) {
+  /*
+  => The `value` is the Majority Element.
+  => Initial Assumed Value of `value` is First Vector Element.
+  => The `count` either ascends or descends to regulate Majority Element choice.
+  => If `count` ascends first, then descends to zero, that means Majority Element has cancelled an equal number of other elements.
+  => If `count` is negative, that means the Majority Element needs to be updated as other elements have overtaken our "assumed" Majority Element.
+  */
+  int value = nums[0], count = 0;
+
+  for (int element: nums) {
+    if (element == value)
+      count++;
+    else {
+      count--;
+      if (count < 0) {
+        count = 0; // Resetting Counter
+        value = element; // Updating Majority Element
+      }
+    }
   }
+
+  return value;
 }
 
-// Boyer-Moore Majority Voting Algorithm.
-// Time Complexity is O(N) and Space Complexity is O(1).
-int majorityElement(vector < int > & nums, int n) {
-  int element = nums[0]; // Assume that the 1st element is the majority element.
-  int count = 0; // Dummy Counting Variable.
-  for (int index = 0; index < n;) {
-    if (nums[index] == element) count++;
-    else count--;
-    if (count == 0) element = nums[index + 1];
-    index++;
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
   }
-  return element;
 }
 
 int main() {
   int size;
   cin >> size;
-  vector < int > nums(size, 0);
-  input(nums, size);
-  cout << majorityElement(nums, size);
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << majorityElement(nums);
+
   return 0;
 }
