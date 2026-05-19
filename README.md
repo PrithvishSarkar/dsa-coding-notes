@@ -55,6 +55,7 @@
 - Optimized Power Function using Binary Exponentiation
 - Sort and Reverse Stack In-Place Recursively
 - Subsequence Patterns and Counting Subsequences
+- Power Set and Combination Sums and Subsets
 
 ## Step-8: Bit Manipulation (Concepts/Problems)
 
