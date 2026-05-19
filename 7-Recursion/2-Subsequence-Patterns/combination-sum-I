@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void findingCombination(int index, int target, vector < int > & temp, vector < vector < int >> & result, vector < int > candidates) {
+  if (index == candidates.size() || target < 0) return;
+
+  if (target == 0) {
+    result.push_back(temp);
+    return;
+  }
+
+  temp.push_back(candidates[index]);
+  findingCombination(index, target - candidates[index], temp, result, candidates);
+
+  temp.pop_back();
+  findingCombination(index + 1, target, temp, result, candidates);
+}
+
+vector < vector < int >> combinationSum(vector < int > & candidates, int target) {
+  vector < int > temp;
+  vector < vector < int >> result;
+  findingCombination(0, target, temp, result, candidates);
+  return result;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < vector < int >> result) {
+  for (auto value: result) {
+    for (int element: value) cout << element << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > candidates;
+
+  input(size, candidates);
+
+  int target;
+  cin >> target;
+
+  vector < vector < int >> result = combinationSum(candidates, target);
+
+  output(result);
+
+  return 0;
+}
