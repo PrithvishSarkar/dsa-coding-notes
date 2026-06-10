@@ -2,49 +2,85 @@
 
 using namespace std;
 
-void input(vector < vector < int >> & matrix, int rows, int cols) {
-  for (int row = 1; row <= rows; row++) {
-    vector < int > temp(cols, 0);
-    for (int col = 1; col <= cols; col++) {
+void input(int rows, int cols, vector < vector < int >> & matrix) {
+  while (rows) {
+    int tempCols = cols;
+    vector < int > tempVec;
+
+    while (tempCols) {
       int element;
       cin >> element;
-      temp[col - 1] = element;
+      tempVec.push_back(element);
+      tempCols--;
     }
-    matrix[row - 1] = temp;
+
+    matrix.push_back(tempVec);
+    rows--;
   }
 }
 
-void print(vector < vector < int >> & matrix, int rows, int cols) {
-  for (int row = 1; row <= rows; row++) {
-    for (int col = 1; col <= cols; col++) cout << matrix[row - 1][col - 1] << " ";
+void output(vector < vector < int >> & matrix) {
+  for (auto row: matrix) {
+    for (int col: row) cout << col << " ";
     cout << endl;
   }
 }
 
-// Time Complexity is O(rows * cols) and Space Complexity is O(K) where K is the size of 'temp' Vector.
-void setZeros(vector < vector < int >> & matrix, int rows, int cols) {
-  vector < pair < int, int >> temp;
-  for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < cols; j++) {
-      if (matrix[i][j] == 0) temp.push_back(make_pair(i, j));
+// Time Complexity is O(rows * cols) and Space Complexity is O(1).
+// Using First Row and Column Marking Algorithm to limit Space Complexity.
+void setZeroes(vector < vector < int >> & matrix) {
+  int rows = matrix.size(), cols = matrix[0].size();
+
+  // Boolean to figure out if First Row or Column contains Zero or not.
+  bool isZeroInFirstRow = false, isZeroInFirstColumn = false;
+
+  // Marking the Row's or Column's First Element as Zero.
+  // This helps to navigate throughout the Matrix and update its value later.
+  for (int row = 0; row < rows; row++) {
+    for (int col = 0; col < cols; col++) {
+      if (matrix[row][col] == 0) {
+        if (row == 0) isZeroInFirstRow = true;
+        if (col == 0) isZeroInFirstColumn = true;
+        matrix[row][0] = 0;
+        matrix[0][col] = 0;
+      }
     }
   }
-  if(temp.size() == 0) return;
-  for (auto indices: temp) {
-    for (int idx = 0; idx < cols; idx++) matrix[indices.first][idx] = 0;
-    for (int idx = 0; idx < rows; idx++) matrix[idx][indices.second] = 0;
+
+  // Update Matrix except the First Row and Column.
+  for (int row = 1; row < rows; row++) {
+    for (int col = 1; col < cols; col++) {
+      if (matrix[row][0] == 0 || matrix[0][col] == 0) matrix[row][col] = 0;
+    }
+  }
+
+  // First Row update if Zero was naturally present.
+  if (isZeroInFirstRow) {
+    for (int col = 0; col < cols; col++) matrix[0][col] = 0;
+  }
+
+  // First Column update if Zero was naturally present.
+  if (isZeroInFirstColumn) {
+    for (int row = 0; row < rows; row++) matrix[row][0] = 0;
   }
 }
 
 int main() {
   int rows, cols;
   cin >> rows >> cols;
-  vector < vector < int >> matrix(rows);
-  input(matrix, rows, cols);
-  print(matrix, rows, cols);
 
-  setZeros(matrix, rows, cols);
-  cout << endl;
-  print(matrix, rows, cols);
+  vector < vector < int >> matrix;
+
+  input(rows, cols, matrix);
+
+  cout << "Before: " << endl;
+  output(matrix);
+
+
+  setZeroes(matrix);
+
+  cout << endl << "After: " << endl;
+  output(matrix);
+
   return 0;
 }
