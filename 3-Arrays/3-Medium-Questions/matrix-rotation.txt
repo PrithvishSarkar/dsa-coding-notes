@@ -2,51 +2,72 @@
 
 using namespace std;
 
-void input(vector < vector < int >> & matrix, int n) {
-  for (int i = 0; i < n; i++) {
-    vector < int > temp(n, 0);
-    for (int j = 0; j < n; j++) {
+// Time Complexity is somewhat less than O(N^2) and Space Complexity is O(1).
+void transpose(vector < vector < int >> & matrix) {
+  int order = matrix.size(), row = 0;
+
+  while (row < order) {
+    int col = 0;
+    while (col < row) {
+      swap(matrix[row][col], matrix[col][row]);
+      col++;
+    }
+    row++;
+  }
+}
+
+// Time Complexity is O(N^2) and Space Complexity is O(1).
+void reverseRows(vector < vector < int >> & matrix) {
+  int order = matrix.size(), row = 0;
+
+  while (row < order) {
+    reverse(matrix[row].begin(), matrix[row].end());
+    row++;
+  }
+}
+
+// Time Complexity is O(N^2) and Space Complexity is O(1).
+void rotate(vector < vector < int >> & matrix) {
+  // Step-1: Calculate the Transpose of the Matrix.
+  transpose(matrix);
+
+  // Step-2: Reverse each row of the Matrix.
+  reverseRows(matrix);
+}
+
+void input(int order, vector < vector < int >> & matrix) {
+  for (int row = 0; row < order; row++) {
+    vector < int > temp(order);
+    for (int col = 0; col < order; col++) {
       int element;
       cin >> element;
-      temp[j] = element;
+      temp[col] = element;
     }
-    matrix[i] = temp;
+    matrix[row] = temp;
   }
 }
 
-void print(vector < vector < int >> & matrix, int n) {
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) cout << matrix[i][j] << " ";
+void output(vector < vector < int >> matrix) {
+  for (auto row: matrix) {
+    for (int col: row) cout << col << " ";
     cout << endl;
   }
-}
-
-// Rotating a matrix by 90 degrees clockwise.
-// Time Complexity is O(N^2) and Space Complexity is O(1).
-void rotateMatrix(vector < vector < int >> & matrix, int n) {
-  // Step-1: Transpose the Matrix.
-  for (int i = 0; i < n; i++) {
-    for (int j = i; j < n; j++) {
-      if (i == j) continue;
-      swap(matrix[i][j], matrix[j][i]);
-    }
-  }
-
-  // Step-2: Reverse all rows.
-  for (int i = 0; i < n; i++) {
-    reverse(matrix[i].begin(), matrix[i].end());
-  }
+  cout << endl;
 }
 
 int main() {
-  int dimension;
-  cin >> dimension;
-  vector < vector < int >> matrix(dimension);
-  input(matrix, dimension);
+  int order;
+  cin >> order;
+
+  vector < vector < int >> matrix(order);
+
+  input(order, matrix);
   cout << "Original Matrix:" << endl;
-  print(matrix, dimension);
-  rotateMatrix(matrix, dimension);
-  cout << "Rotated Matrix:" << endl;
-  print(matrix, dimension);
+  output(matrix);
+
+  rotate(matrix);
+  cout << "Rotated Matrix: " << endl;
+  output(matrix);
+
   return 0;
 }
