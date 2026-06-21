@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Floor: max_element_value <= target
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int getFloor(vector < int > nums, int target) {
+  int start = 0, end = nums.size() - 1, value = -1;
+
+  while (start <= end) {
+    int mid = (start + end) / 2;
+    if (nums[mid] > target) end = mid - 1;
+    else {
+      value = nums[mid];
+      start = mid + 1;
+    }
+  }
+
+  return value;
+}
+
+// Ceil: min_element_value >= target
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int getCeil(vector < int > nums, int target) {
+  int start = 0, end = nums.size() - 1, value = -1;
+
+  while (start <= end) {
+    int mid = (start + end) / 2;
+    if (nums[mid] < target) start = mid + 1;
+    else {
+      value = nums[mid];
+      end = mid - 1;
+    }
+  }
+
+  return value;
+}
+
+vector < int > getFloorAndCeil(vector < int > nums, int x) {
+  if (nums.size() == 0) return {};
+
+  // Both these functions are modified Binary Search.
+  int floorValue = getFloor(nums, x);
+  int ceilValue = getCeil(nums, x);
+  return {
+    floorValue,
+    ceilValue
+  };
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < int > vec) {
+  for (int element: vec) cout << element << " ";
+  cout << endl;
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums); // Assuming Sorted Array Input
+
+  int target;
+  cin >> target;
+
+  output(getFloorAndCeil(nums, target));
+
+  return 0;
+}
