@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int firstOccurrence(vector < int > nums, int target) {
+  int start = 0, end = nums.size() - 1, idx = -1;
+
+  while (start <= end) {
+    int mid = (start + end) / 2;
+    if (nums[mid] < target) start = mid + 1;
+    else if (nums[mid] > target) end = mid - 1;
+    else {
+      idx = mid;
+      end = mid - 1;
+    }
+  }
+
+  return idx;
+}
+
+int lastOccurrence(vector < int > nums, int target) {
+  int start = 0, end = nums.size() - 1, idx = -1;
+
+  while (start <= end) {
+    int mid = (start + end) / 2;
+    if (nums[mid] < target) start = mid + 1;
+    else if (nums[mid] > target) end = mid - 1;
+    else {
+      idx = mid;
+      start = mid + 1;
+    }
+  }
+
+  return idx;
+}
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+vector < int > firstAndLastOccurrence(vector < int > nums, int target) {
+  if (nums.size() == 0) return {
+    -1,
+    -1
+  };
+
+  int first = firstOccurrence(nums, target);
+  int last = lastOccurrence(nums, target);
+
+  return {
+    first,
+    last
+  };
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < int > vec) {
+  for (int element: vec) cout << element << " ";
+  cout << endl;
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums); // Assuming Sorted Array Input
+
+  int target;
+  cin >> target;
+
+  output(firstAndLastOccurrence(nums, target));
+
+  return 0;
+}
