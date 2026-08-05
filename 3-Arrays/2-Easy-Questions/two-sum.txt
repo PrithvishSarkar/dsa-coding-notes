@@ -2,45 +2,44 @@
 
 using namespace std;
 
-void input(vector < int > & nums, int n) {
-  for (int index = 0; index < n; index++) {
-    int element;
-    cin >> element;
-    nums[index] = element;
+// Time Complexity is O(N) and Space Complexity is O(N).
+vector < int > twoSum(vector < int > nums, int target) {
+  // Use Hash Map to store `[value, index]` pair for fast index retrieval.
+  unordered_map < int, int > hashMap;
+
+  int size = nums.size();
+  for (int index = 0; index < size; index++) {
+    // `a + b = target => b = target - a` where `a` is any Vector Element.
+    auto itr = hashMap.find(target - nums[index]);
+    if (itr != hashMap.end()) return { index, itr -> second }; // Element Found.
+    else hashMap.insert({ nums[index], index }); // Element Not Found.
   }
+
+  return {-1, -1};
 }
 
-// Time Complexity is O(N*logN) and Space Complexity is O(N).
-vector < int > twoSum(vector < int > & nums, int size, int target) {
-  vector < pair < int, int >> temp;
-  for (int index = 0; index < size; index++) {
-    temp.push_back({
-      nums[index],
-      index
-    });
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
   }
-  sort(temp.begin(), temp.end());
-  int i = 0, j = temp.size() - 1;
-  while (i < j) {
-    if (temp[i].first + temp[j].first == target)
-      return {
-        temp[i].second,
-        temp[j].second
-      };
-    else if (temp[i].first + temp[j].first < target)
-      i++;
-    else
-      j--;
-  }
-  return {};
 }
 
 int main() {
-  int size, target;
-  cin >> size >> target;
-  vector < int > nums(size, 0);
-  input(nums, size);
-  vector < int > numbers = twoSum(nums, size, target);
-  cout << numbers[0] << " " << numbers[1] << endl;
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  int target;
+  cin >> target;
+
+  vector < int > result = twoSum(nums, target);
+  cout << result[0] << " " << result[1] << endl;
+
   return 0;
 }
