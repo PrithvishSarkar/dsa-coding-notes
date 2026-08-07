@@ -1,0 +1,84 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(N^3) and Space Complexity is O(logN).
+vector < vector < int >> fourSum(vector < int > & nums, int target) {
+  int size = nums.size();
+  if (size < 4) return {}; // Constaint says the vector size can be less than four.
+
+  sort(nums.begin(), nums.end()); // Sorting for convinience.
+
+  /*
+  1. Storing all possible quadruplets such that they adds up to `target`.
+  2. Each element is in the form `[a, b, c, d]` => a + b + c + d = target.
+  */
+  vector < vector < int >> result;
+  
+  bool condition1 = 1LL * nums[0] + nums[1] + nums[2] + nums[3] > target;
+  bool condition2 = 1LL * nums[size - 4] + nums[size - 3] + nums[size - 2] + nums[size - 1] < target;
+  if (condition1 || condition2) return {};
+
+  for (int i = 0; i < (size - 3); i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue; // Avoiding Duplicates.
+    if (target >= 0 && nums[i] > target) break; // Breaks at any point where condition is met.
+
+    /* ===== Three Sum Concept Starts Here */
+    for (int j = (i + 1); j < (size - 2); j++) {
+      if (j > (i + 1) && nums[j] == nums[j - 1]) continue; // Avoiding Duplicates.
+
+      /* ===== Two Sum Concept Starts here ===== */
+      for (int k = (j + 1), w = (size - 1); k < w;) {
+        long long sum = 1 LL * nums[i] + nums[j] + nums[k] + nums[w];
+        if (sum < target) k++;
+        else if (sum > target) w--;
+        else {
+          result.push_back({ nums[i], nums[j], nums[k], nums[w] });
+
+          // Avoiding Duplicates.
+          while (k < w && nums[k] == nums[k + 1]) k++;
+          while (k < w && nums[w] == nums[w - 1]) w--;
+          k++;
+          w--;
+        }
+      }
+      /* ===== Two Sum Concept Ends here ===== */
+    }
+    /* ===== Three Sum Concept Ends Here */
+  }
+
+  return result;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+void output(vector < vector < int >> & result) {
+  for (const auto & vec: result) {
+    for (int element: vec) cout << element << " ";
+    cout << endl;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  int target;
+  cin >> target;
+
+  vector < vector < int >> fourSumResult = fourSum(nums, target);
+  output(fourSumResult);
+
+  return 0;
+}
