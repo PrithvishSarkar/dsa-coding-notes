@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+1. The Vector `nums` is `v[k+1], v[k+2], ..., v[n-1], v[0], v[1], ..., v[k]`.
+2. The original Vector is `v[0], v[1], ..., v[k], v[k+1], ..., v[n-1]`.
+3. The `nums` Vector is rotated `p` times where `p = n - k - 1`.
+4. 1st part: `v[k+1], v[k+2], ..., v[n-1]` and 2nd part: `v[0], v[1], ..., v[k]`.
+*/
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int findMinRotatedSorted(vector < int > & nums) {
+  if (nums.size() == 1) return nums[0]; // Single Element Vector.
+  if (nums.size() == 2) return (nums[0] < nums[1] ? nums[0] : nums[1]);
+
+  int start = 0, end = nums.size() - 1, result = INT_MAX;
+  while (start <= end) {
+    int mid = start + (end - start) / 2;
+
+    // The `mid` lies in the 1st part.
+    bool condition1 = nums[mid] > nums[start] && nums[mid] > nums[end];
+    bool condition2 = (mid == start) && (mid == end - 1) && (nums[mid] > nums[end]);
+    if (condition1 || condition2) start = mid + 1;
+    // The `mid` lies in the 2nd part.
+    else {
+      result = min(result, nums[mid]);
+      end = mid - 1;
+    }
+  }
+
+  return result;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << findMinRotatedSorted(nums);
+
+  return 0;
+}
