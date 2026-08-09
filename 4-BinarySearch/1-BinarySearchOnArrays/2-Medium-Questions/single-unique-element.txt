@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+1. Total number of elements are `n` and there's only one unique element.
+2. Total number of duplicates are `n-1` so `n-1` must be Even => `n` is always odd.
+3. Duplicates are always in pair => (2, 4, 6, 8, ...) duplicates.
+*/
+int singleNonDuplicateElement(vector < int > & nums) {
+  int start = 0, end = nums.size() - 1;
+
+  if (start == end) return nums[0]; // For one-element Vector.
+
+  // Reducing Search Space - Checking First Element.
+  if (nums[start] == nums[start + 1]) start += 2;
+  else return nums[start];
+
+  // Reducing Search Space - Checking Last Element.
+  if (nums[end] == nums[end - 1]) end -= 2;
+  else return nums[end];
+
+  /*
+  1. Unique Element is in Left Half: `mid` is odd and `nums[mid] = nums[mid + 1]`.
+  2. Unique Element is in Left Half: `mid` is even and `nums[mid] = nums[mid - 1]`.
+  3. Every other condition suggests that the Unique Element is in the Right Half.
+  */
+  while (start <= end) {
+    int mid = start + (end - start) / 2;
+    if (nums[mid] != nums[mid - 1] && nums[mid] != nums[mid + 1]) return nums[mid];
+
+    bool condition1 = mid % 2 == 1 && nums[mid] == nums[mid + 1];
+    bool condition2 = mid % 2 == 0 && nums[mid] == nums[mid - 1];
+    if (condition1 || condition2) end = mid - 1; // Moving to the Left Half.
+    else start = mid + 1;
+  }
+
+  return -1;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << singleNonDuplicateElement(nums);
+
+  return 0;
+}
