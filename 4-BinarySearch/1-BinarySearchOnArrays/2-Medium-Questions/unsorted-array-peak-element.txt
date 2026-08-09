@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int findPeakElement(vector < int > & nums) {
+  int start = 0, end = nums.size() - 1;
+
+  while (start < end) {
+    int mid = start + (end - start) / 2;
+    
+    // If `nums[mid] < nums[mid + 1]` => peak is in right side.
+    if (nums[mid] < nums[mid + 1]) start = mid + 1;
+    else end = mid;
+  }
+
+  return start;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << findPeakElement(nums);
+
+  return 0;
+}
