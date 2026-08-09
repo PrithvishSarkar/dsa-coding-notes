@@ -9,26 +9,27 @@ using namespace std;
 4. 1st part: `v[k+1], v[k+2], ..., v[n-1]` and 2nd part: `v[0], v[1], ..., v[k]`.
 */
 // Time Complexity is O(logN) and Space Complexity is O(1).
-int findMinRotatedSorted(vector < int > & nums) {
-  if (nums.size() == 1) return nums[0]; // Single Element Vector.
-  if (nums.size() == 2) return (nums[0] < nums[1] ? nums[0] : nums[1]);
+int numberOfRotations(vector < int > & nums) {
+  if (nums.size() == 1) return 0; // Single Element Vector.
 
-  int start = 0, end = nums.size() - 1, result = INT_MAX;
-  while (start <= end) {
+  int start = 0, end = nums.size() - 1;
+  while (start < end) {
+    // Vector Already Sorted.
+    if (nums[start] < nums[end]) return start;
+
     int mid = start + (end - start) / 2;
 
     // The `mid` lies in the 1st part.
-    bool condition1 = nums[mid] > nums[start] && nums[mid] > nums[end];
-    bool condition2 = (mid == start) && (mid == end - 1) && (nums[mid] > nums[end]);
-    if (condition1 || condition2) start = mid + 1;
-    // The `mid` lies in the 2nd part.
-    else {
-      result = min(result, nums[mid]);
-      end = mid - 1;
-    }
+    if (nums[mid] > nums[end]) start = mid + 1;
+    else end = mid; // The `mid` lies in the 2nd part.
   }
 
-  return result;
+  return start;
+}
+
+int findMinElement(vector < int > & nums) {
+  int index = numberOfRotations(nums);
+  return nums[index];
 }
 
 void input(int size, vector < int > & nums) {
@@ -48,7 +49,7 @@ int main() {
 
   input(size, nums);
 
-  cout << findMinRotatedSorted(nums);
+  cout << findMinElement(nums);
 
   return 0;
 }
