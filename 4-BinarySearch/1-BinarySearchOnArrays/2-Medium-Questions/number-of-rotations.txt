@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+1. The Vector `nums` is `v[k+1], v[k+2], ..., v[n-1], v[0], v[1], ..., v[k]`.
+2. The original Vector is `v[0], v[1], ..., v[k], v[k+1], ..., v[n-1]`.
+3. The `nums` Vector is rotated `p` times where `p = n - k - 1`.
+4. 1st part: `v[k+1], v[k+2], ..., v[n-1]` and 2nd part: `v[0], v[1], ..., v[k]`.
+*/
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int numberOfRotations(vector < int > & nums) {
+  if (nums.size() == 1) return 0; // Single Element Vector.
+
+  int start = 0, end = nums.size() - 1;
+  while (start < end) {
+    // Vector Already Sorted.
+    if (nums[start] < nums[end]) return start;
+
+    int mid = start + (end - start) / 2;
+
+    // The `mid` lies in the 1st part.
+    if (nums[mid] > nums[end]) start = mid + 1;
+    else end = mid; // The `mid` lies in the 2nd part.
+  }
+
+  return start;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << numberOfRotations(nums);
+
+  return 0;
+}
