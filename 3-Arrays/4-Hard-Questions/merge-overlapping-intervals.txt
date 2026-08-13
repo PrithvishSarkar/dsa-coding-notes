@@ -1,0 +1,96 @@
+// 13 August 2026
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(N*logN) and Total Space Complexity is O(N).
+vector<vector<int>> mergeIntervals(vector<vector<int>>& intervals) {
+  int size = intervals.size();
+  
+  if (size == 1) return intervals;
+  
+  /*
+  1. Sorting the entire `intervals` Vector for convenient comparison.
+  2. Sorting uses O(logN) stack space which contributes to Total Space Complexity.
+  */
+  sort(intervals.begin(), intervals.end()); 
+  
+  vector<vector<int>> result; // Stores Merged Intervals.
+  pair<int, int> temp = {INT_MIN, INT_MAX}; // Stores Single Merged Interval.
+  
+  int index = 0;
+  while (index < size) {
+    // Populating Empty Temporary Container.
+    if (temp.first == INT_MIN && temp.second == INT_MAX) {
+      temp = {intervals[index][0], intervals[index][1]};
+      index++;
+    }
+    
+    // Values to be compared.
+    int referenceValue = temp.second; // From previous merged interval.
+    int firstValue = intervals[index][0]; // From current interval.
+    int secondValue = intervals[index][1]; // From current interval.
+    
+    // Case-1: Current interval completely overlaps the previous merged interval.
+    if (referenceValue >= firstValue && referenceValue >= secondValue) {
+      if (index == (size - 1)) result.push_back({temp.first, temp.second});
+      index++;
+      continue;
+    }
+    
+    // Case-2: Current interval partially overlaps the previous merged interval.
+    if (referenceValue >= firstValue && referenceValue <= secondValue) {
+      temp.second = secondValue;
+      if (index == (size - 1)) result.push_back({temp.first, temp.second});
+      index++;
+      continue;
+    }
+    
+    // Case-3: Current interval is disjoint from the previous merged interval.
+    if (referenceValue < firstValue) {
+      result.push_back({temp.first, temp.second});
+      temp = {firstValue, secondValue};
+      if (index == (size - 1)) result.push_back({temp.first, temp.second});
+      index++;
+    }
+  }
+  
+  return result;
+}
+
+void input(int size, vector < vector < int >> & intervals) {
+  while (size) {
+    int first, second;
+    cin >> first >> second;
+    intervals.push_back({
+      first,
+      second
+    });
+    size--;
+  }
+}
+
+void output(vector < vector < int >> & intervals) {
+  for (const auto & interval: intervals)
+    cout << interval[0] << " " << interval[1] << endl;
+  cout << endl;
+}
+
+int main() {
+  int size;
+  cin >> size;
+
+  vector < vector < int >> intervals;
+
+  input(size, intervals);
+
+  cout << "Before Merging: " << endl;
+  output(intervals);
+
+  cout << "After Merging: " << endl;
+  vector < vector < int >> mergedResult = mergeIntervals(intervals);
+  output(mergedResult);
+
+  return 0;
+}
