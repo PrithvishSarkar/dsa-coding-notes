@@ -22,20 +22,23 @@
 - Unique element using XOR operator
 - Union of two Arrays/Vectors
 - Two Sum Problem using Two Pointers
+- **Kadane's Algorithms** (Max Sub-Array Sum)
+- **Dutch National Flag Algorithm**
+- **Boyer-Moore Voting Algorithm**
+- Sliding Window Algorithm for Sub-Array
+- Two Pointers for Two/Three/Four Sums
+- **Narayana Pandit** Algorithm (Next Permutation)
 - Binary Search in 1D Array and 2D Matrix
 - 2D Matrix Spiral Printing and Rotation
-- Kadane's Algorithms (Max Sub-Array Sum)
-- Dutch National Flag Algorithm
-- Boyer-Moore Voting Algorithm
-- Sliding Window Algorithm for Sub-Array
+- Merge Overlapping Intervals & Pascal's Triangle
 
 ## Step-4: Binary Search on Arrays and Matices
 
 - Recursive Binary Search Calls
 - Array's Lower and Upper Bounds
 - Floor and Ceil of an Array
-- Rotated Sorted Array Search
-- Rotated Sorted Array Rotations
+- Searching in a Rotated Sorted Array
+- Rotated Sorted Array Min/Max Elements
 - Unique Element using Binary Search
 - Square Root and n-th Root of a number
 
