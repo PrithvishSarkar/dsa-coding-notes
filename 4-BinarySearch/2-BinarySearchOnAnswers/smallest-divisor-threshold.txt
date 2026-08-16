@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+1. nums = [a1, a2, a3, ..., aN] and threshold = t and divisor = d.
+2. ceil(a1/d) + ceil(a2/d) + ceil(a3/d) + ... + ceil(aN/d) <= t.
+*/
+// Time Complexity is O(N*logM) [M = max(nums)] and Space Complexity is O(1).
+int smallestDivisor(vector < int > & nums, int threshold) {
+  if (threshold == nums.size()) return *max_element(nums.begin(), nums.end());
+  if (nums.size() == 1) {
+    double numerator = (double) nums[0];
+    double denominator = (double) threshold;
+    return ceil(numerator / denominator);
+  }
+
+  int start = 1, end = *max_element(nums.begin(), nums.end()), result = -1;
+  while (start <= end) {
+    int mid = start + (end - start) / 2;
+    
+    // Calculating Resultant Sum.
+    long long sum = 0; // Avoiding Interger Range Overflow.
+    for (int element: nums) sum += (element + mid - 1LL) / mid; // Ceiling Value.
+    
+    if (sum > threshold) start = mid + 1;
+    else {
+      result = mid;
+      end = mid - 1;
+    }
+  }
+
+  return result;
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size, threshold;
+  cin >> size >> threshold;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << smallestDivisor(nums, threshold);
+
+  return 0;
+}
