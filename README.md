@@ -41,6 +41,7 @@
 - Rotated Sorted Array Min/Max Elements
 - Unique Element using Binary Search
 - Square Root and n-th Root of a number
+- Missing number in k-th place (1 <= k)
 
 ## Step-6: Linked List - Single/Double/Circular
 

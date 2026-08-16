@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Time Complexity is O(logN) and Space Complexity is O(1).
+int findKthPositive(vector < int > & nums, int k) {
+  int start = 0, end = nums.size();
+  while (start < end) {
+    int mid = start + (end - start) / 2;
+    int missing = nums[mid] - (mid + 1); // Number of missing numbers.
+
+    if (missing < k) start = mid + 1; // Need more missing numbers => Go Right.
+    else end = mid; // Enough or more missing numbers => Go Left.
+  }
+
+  return (start + k);
+}
+
+void input(int size, vector < int > & nums) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size, k;
+  cin >> size >> k;
+
+  vector < int > nums;
+
+  input(size, nums);
+
+  cout << findKthPositive(nums, k);
+
+  return 0;
+}
