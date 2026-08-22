@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+pair < int, int > capacityRange(vector < int > & weights) {
+  int maxElement = INT_MIN, sum = 0;
+  for (int element: weights) {
+    maxElement = max(maxElement, element);
+    sum += element;
+  }
+
+  return {
+    maxElement,
+    sum
+  };
+}
+
+/*
+1. Time Complexity is O(N*log(S-M)) and Space Complexity is O(1).
+2. S = Sum of elements of the vectors | M = maximum element of the vector.
+*/
+int minimumShipCapacity(vector < int > & weights, int days) {
+  pair < int, int > range = capacityRange(weights);
+  int minCapacity = range.first, maxCapacity = range.second;
+  int size = weights.size();
+
+  while (minCapacity < maxCapacity) {
+    int guessCapacity = minCapacity + (maxCapacity - minCapacity) / 2;
+
+    /*
+    1. Counting the number of days required to ship all the items.
+    2. The ship can only load items whose total weight is less than the capacity.
+    */
+    int shippingDays = 1, shippingWeight = 0;
+    for (int index = 0; index < size; index++) {
+      if (shippingWeight + weights[index] <= guessCapacity) shippingWeight += weights[index];
+      else {
+        shippingDays++;
+        shippingWeight = weights[index]; // New Day => New Load
+      }
+    }
+
+    if (shippingDays > days) minCapacity = guessCapacity + 1;
+    else maxCapacity = guessCapacity;
+  }
+
+  return maxCapacity;
+}
+
+void input(vector < int > & nums, int size) {
+  while (size) {
+    int element;
+    cin >> element;
+    nums.push_back(element);
+    size--;
+  }
+}
+
+int main() {
+  int size, days;
+  cin >> size >> days;
+
+  vector < int > weights;
+
+  input(weights, size);
+
+  cout << minimumShipCapacity(weights, days);
+
+  return 0;
+}
